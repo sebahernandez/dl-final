@@ -13,13 +13,14 @@ export const Login = () => {
     e.preventDefault();
 
     // aqui va la logica de autenticacion
-    login({ email, rol: "admin" }, "123456");
+
+    login({ user, email, rol: "admin" }, "123456");
 
     navigate("/");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-2xl font-bold text-gray-800 text-center">Login</h2>
         <form onSubmit={handleLogin} className="mt-8 space-y-6">
@@ -44,7 +45,7 @@ export const Login = () => {
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
             >
-              Password
+              Contraseña
             </label>
             <input
               type="password"
@@ -57,9 +58,9 @@ export const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="w-full bg-stone-700 text-white py-2 px-4 rounded-md hover:bg-stone-600 focus:outline-none focus:ring-2 focus:stroke-stone-700 focus:ring-offset-2"
           >
-            Login
+            Entrar
           </button>
         </form>
       </div>

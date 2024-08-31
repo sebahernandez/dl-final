@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "name": "Addidas Court VI",
+    "description": "Zapatillas ligeras y transpirables, perfectas para correr largas distancias.",
+    "price": 59990,
+    "image": "/img/shoes/addidas-court-vi.webp",
+    "sizes": ["38", "39", "40", "41", "42"],
+    "stock": 25
+  },
+  {
+    "id": 2,
+    "name": "Addidas Court",
+    "description": "Zapatillas casuales con estilo urbano, ideales para el día a día.",
+    "price": 45990,
+    "image": "/img/shoes/addidas-court.webp",
+    "sizes": ["37", "38", "39", "40", "41"],
+    "stock": 30
+  },
+  {
+    "id": 3,
+    "name": "Converse Chuck Taylor",
+    "description": "Zapatillas robustas y duraderas, diseñadas para aventuras en terrenos difíciles.",
+    "price": 79990,
+    "image": "/img/shoes/converse-chuck-taylor.webp",
+    "sizes": ["40", "41", "42", "43", "44"],
+    "colors": ["Verde", "Marrón"],
+    "stock": 15
+  },
+  {
+    "id": 4,
+    "name": "Puma Roma 68",
+    "description": "Zapatillas de alta resistencia para un rendimiento profesional en la cancha.",
+    "price": 89990,
+    "image": "/img/shoes/puma-roma-68.webp",
+    "sizes": ["42", "43", "44", "45"],
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "name": "Vans hyline unisex",
+    "description": "Zapatillas diseñadas para máximo agarre y soporte en partidos de tenis.",
+    "price": 67990,
+    "image": "/img/shoes/vans-hyline-unisex.webp",
+    "sizes": ["39", "40", "41", "42"],
+    "stock": 18
+  },
+  {
+    "id": 6,
+    "name": "Vans upland unisex",
+    "description": "Zapatillas clásicas de skateboard, con gran durabilidad y estilo.",
+    "price": 49990,
+    "image": "/img/shoes/vans-upland-unisex.webp",
+    "sizes": ["38", "39", "40", "41", "42"],
+    "stock": 22
+  }
+]

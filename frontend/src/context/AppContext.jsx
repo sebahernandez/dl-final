@@ -12,8 +12,6 @@ const initialToken = null;
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(initialUser);
   const [token, setToken] = useState(initialToken);
-  /*   const [] = useState();
-  const [] = useState(); */
 
   const logout = () => {
     setUser(initialUser);

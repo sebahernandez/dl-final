@@ -13,25 +13,13 @@ export const Navbar = () => {
                 to="/"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center py-5 px-2 text-blue-600 font-bold"
+                    ? "flex items-center py-5 px-2 text-stone-600 font-bold"
                     : "flex items-center py-5 px-2 text-gray-700 hover:text-gray-900"
                 }
               >
-                <svg
-                  className="h-6 w-6 mr-1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 12l2-2m0 0l7-7 7 7M13 5v6a4 4 0 01-8 0V5m10 7l2 2m0 0l7 7-7-7m0 0l-2 2"
-                  />
-                </svg>
-                <span className="font-bold">Ecommerce</span>
+                <span className="font-bold text-4xl text-stone-600">
+                  Snekers<span className="text-stone-400">Shop</span>👟
+                </span>
               </NavLink>
             </div>
           </div>
@@ -42,18 +30,18 @@ export const Navbar = () => {
               to="/"
               className={({ isActive }) =>
                 isActive
-                  ? "py-5 px-3 text-blue-600 font-bold"
-                  : "py-5 px-3 text-gray-700 hover:text-gray-900"
+                  ? "py-5 px-3 text-stone-500 font-bold"
+                  : "py-5 px-3 text-gray-700 hover:text-gray-900 font-bold"
               }
             >
-              Home
+              Inicio
             </NavLink>
             <NavLink
               to="/shop"
               className={({ isActive }) =>
                 isActive
-                  ? "py-5 px-3 text-blue-600 font-bold"
-                  : "py-5 px-3 text-gray-700 hover:text-gray-900"
+                  ? "py-5 px-3 text-stone-500 font-bold"
+                  : "py-5 px-3 text-gray-700 hover:text-gray-900 font-bold"
               }
             >
               Shop
@@ -62,21 +50,21 @@ export const Navbar = () => {
               to="/about"
               className={({ isActive }) =>
                 isActive
-                  ? "py-5 px-3 text-blue-600 font-bold"
-                  : "py-5 px-3 text-gray-700 hover:text-gray-900"
+                  ? "py-5 px-3 text-stone-500 font-bold"
+                  : "py-5 px-3 text-gray-700 hover:text-gray-900 font-bold"
               }
             >
-              About
+              Nosotros
             </NavLink>
             <NavLink
               to="/contact"
               className={({ isActive }) =>
                 isActive
-                  ? "py-5 px-3 text-blue-600 font-bold"
-                  : "py-5 px-3 text-gray-700 hover:text-gray-900"
+                  ? "py-5 px-3 text-stone-500 font-bold"
+                  : "py-5 px-3 text-gray-700 hover:text-gray-900 font-bold"
               }
             >
-              Contact
+              Contacto
             </NavLink>
           </div>
 
@@ -86,21 +74,21 @@ export const Navbar = () => {
               to="/login"
               className={({ isActive }) =>
                 isActive
-                  ? "py-2 px-3 bg-blue-600 text-white rounded font-bold"
-                  : "py-2 px-3 bg-blue-500 text-white rounded hover:bg-blue-400"
+                  ? "py-2 px-3 bg-stone-500 text-white rounded font-bold"
+                  : "py-2 px-3 bg-stone-600 text-white rounded hover:bg-stone-500 font-bold"
               }
             >
-              Login
+              Acceder
             </NavLink>
             <NavLink
               to="/register"
               className={({ isActive }) =>
                 isActive
-                  ? "py-2 px-3 bg-blue-600 text-white rounded font-bold"
-                  : "py-2 px-3 bg-blue-500 text-white rounded hover:bg-blue-400"
+                  ? "py-2 px-3 bg-stone-400 text-white rounded font-bold"
+                  : "py-2 px-3 bg-stone-800 text-white rounded hover:bg-stone-500 font-bold"
               }
             >
-              Register
+              Crear cuenta
             </NavLink>
             <NavLink
               to="/cart"
