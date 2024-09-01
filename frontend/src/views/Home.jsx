@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { ProductsList } from "../components/product-list/ProductList";
 
-export const Home = () => {
+const Home = () => {
   const { user } = useContext(AppContext);
 
   return (
@@ -11,3 +11,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home

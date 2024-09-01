@@ -1,12 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Home } from "./views/Home";
-import { Shop } from "./views/Shop";
-import { About } from "./views/About";
-import { Contact } from "./views/Contact";
-import { Login } from "./views/Login";
-import { Register } from "./views/Register";
-import { NotFound } from "./views/NotFound";
+import { Home, Shop, About, Contact, Login, Register, NotFound } from "./views";
 import { RootLayout } from "./layouts/RootLayout";
 
 function App() {

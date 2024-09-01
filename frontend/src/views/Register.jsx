@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
-export const Register = () => {
+const Register = () => {
   const { login } = useContext(AppContext); // Importa la función login desde el contexto
 
   const [name, setName] = useState("");
@@ -91,3 +91,5 @@ export const Register = () => {
     </div>
   );
 };
+
+export default Register
