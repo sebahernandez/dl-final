@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-export const ProductDetails = () => {
+const ProductDetails = () => {
   const { name } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -108,3 +108,5 @@ export const ProductDetails = () => {
     </div>
   );
 };
+
+export default ProductDetails;
