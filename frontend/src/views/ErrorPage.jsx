@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouteError } from "react-router-dom";
 
-export const ErrorPage = () => {
+const ErrorPage = () => {
   const error = useRouteError(); // Hook para obtener el error ocurrido en la ruta
   console.error(error); // Opcional: puedes loggear el error para depuración
 
@@ -20,3 +20,5 @@ export const ErrorPage = () => {
     </div>
   );
 };
+
+export default ErrorPage

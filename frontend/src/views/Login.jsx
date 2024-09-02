@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
-export const Login = () => {
+const Login = () => {
   const { user, login } = useContext(AppContext);
 
   const [email, setEmail] = useState("");
@@ -67,3 +67,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login
