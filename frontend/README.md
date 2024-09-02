@@ -1,5 +1,3 @@
-# React + Vite
-
 # Desafio Latam
 
 ## Proyecto Final Ecommerce
