@@ -72,21 +72,17 @@ const ProductDetails = () => {
                 Selecionar numero:
               </span>
               <div className="flex items-center mt-2">
-                <button className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">
-                  S
-                </button>
-                <button className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">
-                  M
-                </button>
-                <button className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">
-                  L
-                </button>
-                <button className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">
-                  XL
-                </button>
-                <button className="bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-white py-2 px-4 rounded-full font-bold mr-2 hover:bg-gray-400 dark:hover:bg-gray-600">
-                  XXL
-                </button>
+                {
+                  // Array.from() creates a new array from the given argument
+                  product.sizes.map((size) => (
+                    <button
+                      key={size}
+                      className="mr-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600"
+                    >
+                      {size}
+                    </button>
+                  ))
+                }
               </div>
             </div>
 

@@ -1,9 +1,9 @@
 const About = () => {
   return (
-    <div>
+    <section className="container mx-auto">
       <h1>About</h1>
       <p>Learn more about us!</p>
-    </div>
+    </section>
   );
 };
 

@@ -1,9 +1,9 @@
 const Shop = () => {
   return (
-    <div>
+    <section className="container mx-auto">
       <h1>Shop</h1>
       <p>Check out our products!</p>
-    </div>
+    </section>
   );
 };
-export default Shop
+export default Shop;

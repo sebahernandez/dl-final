@@ -7,7 +7,7 @@ export const RootLayout = () => {
   return (
     <div>
       <Header />
-      <main className="container mx-auto px-4">
+      <main>
         <Outlet /> {/* Aquí se renderizan las rutas hijas */}
       </main>
       <Footer />
