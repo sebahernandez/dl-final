@@ -2,7 +2,7 @@ import React from "react";
 
 export const TopBar = ({ user }) => {
   return (
-    <div className="bg-gray-800 text-white p-4">
+    <div className=" bg-stone-600 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div>
           {user?.email ? (

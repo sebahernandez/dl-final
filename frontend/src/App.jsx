@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { RootLayout } from "./layouts/RootLayout";
 import { Home } from "./views/Home";
 import { Shop } from "./views/Shop";
 import { About } from "./views/About";
@@ -7,7 +8,7 @@ import { Contact } from "./views/Contact";
 import { Login } from "./views/Login";
 import { Register } from "./views/Register";
 import { NotFound } from "./views/NotFound";
-import { RootLayout } from "./layouts/RootLayout";
+import { ProductDetails } from "./views/ProductDetails";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/product/:name" element={<ProductDetails />} />
           {/* Ruta 404 */}
           <Route path="*" element={<NotFound />} />
         </Route>
