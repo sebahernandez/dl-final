@@ -9,7 +9,7 @@
     "gallery": [""],
     "stock": 25,
     "marca": "Addidas",
-    "category": "running",
+    "category": "Running",
     "gender": "hombre"
   },
   {
@@ -22,7 +22,7 @@
     "sizes": ["37", "38", "39", "40", "41"],
     "stock": 30,
     "marca": "Addidas",
-    "category": "casual",
+    "category": "Urbanas",
     "gender": "mujer"
   },
   {
@@ -36,7 +36,7 @@
     "colors": ["Verde", "Marrón"],
     "stock": 15,
     "marca": "Converse",
-    "category": "aventura",
+    "category": "Urbanas",
     "gender": "hombre"
   },
   {
@@ -49,20 +49,20 @@
     "sizes": ["42", "43", "44", "45"],
     "stock": 20,
     "marca": "Puma",
-    "category": "casual",
+    "category": "Urbanas",
     "gender": "mujer"
   },
   {
     "id": 5,
     "name": "Vans hyline unisex",
     "description": "Zapatillas diseñadas para máximo agarre y soporte en partidos de tenis.",
-    "price": 67990,
+    "price": 100000,
     "image": "/img/shoes/vans-hyline-unisex.webp",
     "gallery": [""],
     "sizes": ["39", "40", "41", "42"],
     "stock": 18,
     "marca": "Vans",
-    "category": "skate",
+    "category": "Skate",
     "gender": "mujer"
   },
   {
@@ -75,7 +75,7 @@
     "sizes": ["38", "39", "40", "41", "42"],
     "stock": 22,
     "marca": "Vans",
-    "category": "skate",
+    "category": "Skate",
     "gender": "hombre"
   }
 ]

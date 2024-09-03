@@ -1,4 +1,6 @@
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { formatPriceCLP } from "../../utils/format-price/formatPrice";
 
 export const ProductCard = ({ product }) => {
   const formatNameForUrl = (name) => {
@@ -20,9 +22,19 @@ export const ProductCard = ({ product }) => {
         {product.name}
       </Link>
       <p className="text-lg font-semibold text-stone-600 mt-4">
-        ${product.price.toLocaleString()}
+        {formatPriceCLP(product.price)}
       </p>
       <p className="text-sm text-gray-600"> {product.marca}</p>
     </div>
   );
+};
+
+ProductCard.propTypes = {
+  product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    marca: PropTypes.string.isRequired,
+  }).isRequired,
 };
