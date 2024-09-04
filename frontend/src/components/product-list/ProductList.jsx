@@ -39,7 +39,7 @@ export const ProductsList = () => {
           ))
         ) : (
           <p className="text-2xl font-bold text-center w-full col-start-2 col-span-2 text-red-600 py-10">
-            😔 No hay productos disponibles en el precio que buscas...
+            😔 No hay productos disponibles...
           </p>
         )}
       </div>

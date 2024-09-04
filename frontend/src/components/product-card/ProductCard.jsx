@@ -8,7 +8,7 @@ export const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="border rounded-lg shadow-lg p-4">
+    <div className="border rounded-lg shadow-sms p-4">
       <img
         src={product.image}
         alt={product.name}
