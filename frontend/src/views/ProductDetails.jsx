@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { formatPriceCLP } from "../utils/format-price/formatPrice";
 
 const ProductDetails = () => {
   const { name } = useParams();
@@ -54,7 +55,7 @@ const ProductDetails = () => {
                   Precio:
                 </span>
                 <span className="text-gray-600 dark:text-gray-300">
-                  ${product.price.toLocaleString()}
+                  {formatPriceCLP(product.price)}
                 </span>
               </div>
               <div>
