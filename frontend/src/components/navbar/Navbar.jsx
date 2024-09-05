@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { IconCart } from "../icons/IconCart";
 import { UserIcon } from "../icons/UserIcon";
 
-export const Navbar = () => {
+export const Navbar = ({ cartItemCount }) => {
   return (
     <nav className="bg-white shadow-lg">
       <div className="container mx-auto">
@@ -71,13 +71,18 @@ export const Navbar = () => {
           </div>
 
           {/* Secondary Navigation */}
-          <div className="hidden md:flex items-center space-x-3">
+          <div className="hidden md:flex items-center space-x-3 relative">
             <NavLink to="/register">Crea tu cuenta</NavLink>
             <NavLink to="/login">
               <UserIcon />
             </NavLink>
             <NavLink to="/cart">
               <IconCart />
+              {cartItemCount > 0 && (
+                <span className="absolute top-6 -right-2 w-5 h-5 text-center bg-red-500 text-white rounded-full text-sm flex justify-center items-center ">
+                  {cartItemCount}
+                </span>
+              )}
             </NavLink>
           </div>
 

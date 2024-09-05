@@ -7,6 +7,7 @@ export const ProductsList = () => {
   const [products, setProducts] = useState([]);
   const [priceRange, setPriceRange] = useState(0);
   const [category, setCategory] = useState("all");
+  const [gender, setGender] = useState("all");
 
   useEffect(() => {
     fetch("/data/products.json")
@@ -18,6 +19,7 @@ export const ProductsList = () => {
   const filters = {
     minPrice: priceRange,
     category: category,
+    gender: gender,
   };
 
   const filterProducts = FilteredProducts(products, filters);
@@ -30,6 +32,8 @@ export const ProductsList = () => {
           setPriceRange={setPriceRange}
           category={category}
           setCategory={setCategory}
+          gender={gender}
+          setGender={setGender}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-0 py-5">
@@ -39,7 +43,7 @@ export const ProductsList = () => {
           ))
         ) : (
           <p className="text-2xl font-bold text-center w-full col-start-2 col-span-2 text-red-600 py-10">
-            😔 No hay productos disponibles en el precio que buscas...
+            😔 No hay productos disponibles...
           </p>
         )}
       </div>

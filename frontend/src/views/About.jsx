@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <section className="bg-gray-100 py-16 px-6 sm:px-10 lg:px-20">
+    <section className=" py-[100px] px-6 sm:px-10 lg:px-20">
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6">
           Bienvenidos a SneckersShop
