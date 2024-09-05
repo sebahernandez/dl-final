@@ -71,7 +71,7 @@ export const AppProvider = ({ children }) => {
 
   // Guardar productos del carrito en sessionStorage cada vez que cambie el carrito
   useEffect(() => {
-    if (cartItems.length > 0) {
+    if (cartItems.length == 0) {
       sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
     } else {
       sessionStorage.removeItem("cartItems"); // Si el carrito está vacío, lo eliminamos del sessionStorage
