@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { formatPriceCLP } from "../utils/format-price/formatPrice";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const ProductDetails = () => {
+const ProductDetails = ({ addToCart }) => {
   const { name } = useParams();
   const [product, setProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   useEffect(() => {
     const formatNameFromUrl = (name) => {
@@ -28,6 +31,21 @@ const ProductDetails = () => {
   if (!product) {
     return <div>Loading...</div>;
   }
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert("Por favor selecciona una talla");
+      return;
+    }
+
+    // Añadir el producto al carrito con la talla seleccionada
+    addToCart({ ...product, size: selectedSize });
+
+    // Mostrar notificación usando React Toastify
+    toast.success(`${product.name} añadido al carrito!`, {
+      position: "bottom-right",
+    });
+  };
 
   return (
     <div className="py-8 flex justify-center items-center">
@@ -70,26 +88,31 @@ const ProductDetails = () => {
 
             <div className="mb-4">
               <span className="font-bold text-gray-700 dark:text-gray-300 py-10">
-                Selecionar numero:
+                Seleccionar número:
               </span>
               <div className="flex items-center mt-2">
-                {
-                  // Array.from() creates a new array from the given argument
-                  product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      className="mr-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600"
-                    >
-                      {size}
-                    </button>
-                  ))
-                }
+                {product.sizes.map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`mr-2 py-2 px-4 rounded-full font-bold ${
+                      selectedSize === size
+                        ? "bg-gray-900 text-white"
+                        : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
+                    } hover:bg-gray-300 dark:hover:bg-gray-600`}
+                  >
+                    {size}
+                  </button>
+                ))}
               </div>
             </div>
 
             <div className="flex -mx-2 mb-4 py-5">
               <div className="w-1/2 px-2">
-                <button className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
+                <button
+                  onClick={handleAddToCart}
+                  className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700"
+                >
                   Añadir al carrito
                 </button>
               </div>
