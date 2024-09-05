@@ -84,4 +84,6 @@ Filters.propTypes = {
   setPriceRange: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
   setCategory: PropTypes.func.isRequired,
+  gender: PropTypes.string.isRequired,
+  setGender: PropTypes.func.isRequired,
 };
