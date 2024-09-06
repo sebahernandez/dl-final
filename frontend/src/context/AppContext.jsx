@@ -1,20 +1,16 @@
 import PropTypes from "prop-types";
-import React, {
-  createContext,
-  useReducer,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { createContext, useReducer, useMemo } from "react";
 
 export const AppContext = createContext();
 
 const initialState = {
-  user: {
+  user: JSON.parse(sessionStorage.getItem("user")) ?? {
     email: null,
     rol: null,
   },
-  token: null,
+  token: sessionStorage.getItem("token") ?? null,
+  cartItems: JSON.parse(sessionStorage.getItem("cartItems")) ?? [],
+  favorites: JSON.parse(sessionStorage.getItem("favorites")) ?? [],
 };
 
 // Reducer para manejar el estado de usuario y token
@@ -35,6 +31,16 @@ const appReducer = (state, action) => {
         },
         token: null,
       };
+    case "ADD_TO_CART":
+      return {
+        ...state,
+        cartItems: action.payload.cartItems,
+      };
+    case "ADD_TO_FAVORITES":
+      return {
+        ...state,
+        favorites: action.payload.favorites,
+      };
     default:
       return state;
   }
@@ -42,42 +48,6 @@ const appReducer = (state, action) => {
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
-  const [cartItems, setCartItems] = useState(() => {
-    const storedCartItems = JSON.parse(sessionStorage.getItem("cartItems"));
-    return storedCartItems || []; // Si no hay nada en sessionStorage, devolver un array vacío en lugar de null
-  });
-  // Restaurar usuario, token y carrito desde sessionStorage cuando el componente se monta
-  useEffect(() => {
-    const storedUser = JSON.parse(sessionStorage.getItem("user"));
-    const storedToken = sessionStorage.getItem("token");
-    const storedCartItems = JSON.parse(sessionStorage.getItem("cartItems"));
-
-    if (storedUser && storedToken) {
-      dispatch({
-        type: "LOGIN",
-        payload: {
-          user: storedUser,
-          token: storedToken,
-        },
-      });
-    }
-
-    // Restaurar carrito desde sessionStorage
-    if (storedCartItems) {
-      setCartItems(storedCartItems);
-    }
-  }, []);
-
-  // Guardar productos del carrito en sessionStorage cada vez que cambie el carrito
-  useEffect(() => {
-    if (cartItems.length > 0) {
-      // Guardar los productos del carrito en sessionStorage si hay productos
-      sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
-    } else {
-      // Eliminar el carrito de sessionStorage si está vacío
-      sessionStorage.removeItem("cartItems");
-    }
-  }, []);
 
   // Función para agregar productos al carrito
   const addToCart = (product) => {
@@ -113,16 +83,21 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: "LOGOUT" });
   };
 
+  const loadCartItems = (cartItems) => {
+    dispatch({ type: "ADD_TO_CART", payload: { cartItems } });
+  };
+
   const globalState = useMemo(
     () => ({
       user: state.user,
       token: state.token,
-      cartItems,
+      cartItems: state.cartItems,
       login,
       logout,
       addToCart,
+      loadCartItems,
     }),
-    [state.user, state.token, cartItems]
+    [state.user, state.token, state.cartItems]
   );
 
   return (
