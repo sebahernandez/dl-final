@@ -5,7 +5,7 @@ import { Filters } from "../filters/Filters";
 import { AppContext } from "../../context/AppContext";
 
 export const ProductsList = () => {
-  const { cartItems: products, loadCartItems } = useContext(AppContext);
+  const { storeProducts: products, setProducts } = useContext(AppContext);
   const [priceRange, setPriceRange] = useState(0);
   const [category, setCategory] = useState("all");
   const [gender, setGender] = useState("all");
@@ -15,7 +15,7 @@ export const ProductsList = () => {
 
     fetch("/data/products.json")
       .then((response) => response.json())
-      .then((data) => loadCartItems(data))
+      .then((data) => setProducts(data))
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 

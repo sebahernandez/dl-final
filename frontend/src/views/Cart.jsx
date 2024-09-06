@@ -17,9 +17,9 @@ const Cart = ({ cartItems, removeFromCart }) => {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
-            {cartItems.map((item) => (
+            {cartItems.map((item, index) => (
               <div
-                key={item.id + item.size} // Usamos id y size para manejar productos iguales con tallas diferentes
+                key={index} // Usamos id y size para manejar productos iguales con tallas diferentes
                 className="flex items-center justify-between bg-white p-4 mb-4 rounded-lg shadow-sm border-2 border-stone-100"
               >
                 <img
