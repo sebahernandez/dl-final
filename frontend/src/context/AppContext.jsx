@@ -49,23 +49,6 @@ const appReducer = (state, action) => {
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
-  // Función para agregar productos al carrito
-  const addToCart = (product) => {
-    setCartItems((prevCartItems) => {
-      const existingProductIndex = prevCartItems.findIndex(
-        (item) => item.id === product.id && item.size === product.size
-      );
-
-      if (existingProductIndex !== -1) {
-        const updatedCartItems = [...prevCartItems];
-        updatedCartItems[existingProductIndex].quantity += 1;
-        return updatedCartItems;
-      } else {
-        return [...prevCartItems, { ...product, quantity: 1 }];
-      }
-    });
-  };
-
   // Función para iniciar sesión y guardar en sessionStorage
   const login = (user, token) => {
     // Guardar en sessionStorage
@@ -94,7 +77,6 @@ export const AppProvider = ({ children }) => {
       cartItems: state.cartItems,
       login,
       logout,
-      addToCart,
       loadCartItems,
     }),
     [state.user, state.token, state.cartItems]

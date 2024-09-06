@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { formatPriceCLP } from "../utils/format-price/formatPrice";
@@ -127,6 +128,10 @@ const ProductDetails = ({ addToCart }) => {
       </div>
     </div>
   );
+};
+
+ProductDetails.propTypes = {
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;
