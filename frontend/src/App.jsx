@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import {
   Home,
@@ -21,21 +21,9 @@ import "react-toastify/dist/ReactToastify.css"; // Importar el CSS de Toastify
 function App() {
   const [cartItems, setCartItems] = useState([]);
 
-  // Restaurar carrito desde sessionStorage cuando la página se carga
-  useEffect(() => {
-    const storedCartItems = JSON.parse(sessionStorage.getItem("cartItems"));
-    if (storedCartItems) {
-      setCartItems(storedCartItems);
-    }
-  }, []);
-
-  // Guardar productos del carrito en sessionStorage cada vez que cambie
-  useEffect(() => {
-    sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
-
   // Función para agregar productos al carrito
   const addToCart = (product) => {
+    //Buscar si el producto ya existe en el carrito con el mismo ID y tamaño
     setCartItems((prevCartItems) => {
       const existingProductIndex = prevCartItems.findIndex(
         (item) => item.id === product.id && item.size === product.size

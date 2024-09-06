@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ProductCard } from "../product-card/ProductCard";
 import { FilteredProducts } from "../../utils/filters-products/FilteredProducts";
 import { Filters } from "../filters/Filters";
+import { AppContext } from "../../context/AppContext";
 
 export const ProductsList = () => {
-  const [products, setProducts] = useState([]);
+  const { cartItems: products, loadCartItems } = useContext(AppContext);
   const [priceRange, setPriceRange] = useState(0);
   const [category, setCategory] = useState("all");
   const [gender, setGender] = useState("all");
 
   useEffect(() => {
+    if (products.length > 0) return;
+
     fetch("/data/products.json")
       .then((response) => response.json())
-      .then((data) => setProducts(data))
+      .then((data) => loadCartItems(data))
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
