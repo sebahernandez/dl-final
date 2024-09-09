@@ -55,6 +55,12 @@ const appReducer = (state, action) => {
         favorites: action.payload.favorites,
       };
 
+    case "REMOVE_FROM_FAVORITES":
+      return {
+        ...state,
+        favorites: action.payload.favorites,
+      };
+
     default:
       return state;
   }
@@ -84,9 +90,9 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: "LOGOUT" });
   };
 
-  const loadCartItems = (cartItems) => {
+  /*  const loadCartItems = (cartItems) => {
     dispatch({ type: "ADD_TO_CART", payload: { cartItems } });
-  };
+  }; */
 
   // Función para actualizar los productos generales de la tienda
   const setProducts = (products) => {
@@ -129,19 +135,63 @@ export const AppProvider = ({ children }) => {
     });
   };
 
+  const addToFavorites = (product) => {
+    const existingProductIndex = state.favorites.findIndex(
+      (item) => item.id === product.id && item.size === product.size
+    );
+
+    let updatedFavorites;
+
+    if (existingProductIndex !== -1) {
+      updatedFavorites = [...state.favorites];
+      updatedFavorites[existingProductIndex].quantity += 1;
+    } else {
+      updatedFavorites = [...state.favorites, { ...product, quantity: 1 }];
+    }
+
+    // Actualizar los favoritos en el estado y sessionStorage
+    sessionStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    dispatch({
+      type: "ADD_TO_FAVORITES",
+      payload: { favorites: updatedFavorites },
+    });
+  };
+
+  const removeFromFavorites = (id, size) => {
+    const updatedFavorites = state.favorites.filter(
+      (item) => item.id !== id || item.size !== size
+    );
+
+    // Actualizar los favoritos en el estado y sessionStorage
+    sessionStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    dispatch({
+      type: "REMOVE_FROM_FAVORITES",
+      payload: { favorites: updatedFavorites },
+    });
+  };
+
   const globalState = useMemo(
     () => ({
       user: state.user, // Estado para el usuario
       token: state.token, // Estado para el token de autenticación
       storeProducts: state.storeProducts, // Estado para los productos generales
       cartItems: state.cartItems, // Estado para los productos en el carrito
+      favorites: state.favorites, // Estado para los productos favoritos
       setProducts, // Función para actualizar productos generales
       addToCart, // Función para añadir productos al carrito
       removeFromCart, // Función para eliminar productos del carrito
       login, // Función para iniciar sesión
       logout, // Función para cerrar sesión
+      addToFavorites, // Función para añadir productos a favoritos
+      removeFromFavorites, // Función para eliminar productos de favoritos
     }),
-    [state.user, state.token, state.storeProducts, state.cartItems]
+    [
+      state.user,
+      state.token,
+      state.storeProducts,
+      state.cartItems,
+      state.favorites,
+    ]
   );
 
   return (
