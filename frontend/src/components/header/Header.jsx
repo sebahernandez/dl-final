@@ -5,7 +5,7 @@ import { TopBar } from "../topbar/TopBar";
 
 export const Header = ({ cartItemCount }) => {
   const { user } = useContext(AppContext);
-  console.log(user);
+
   return (
     <div className="header">
       <TopBar user={user} />

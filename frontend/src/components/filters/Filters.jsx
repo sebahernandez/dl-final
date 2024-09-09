@@ -22,9 +22,9 @@ export function Filters({
   };
 
   return (
-    <section className="flex flex-col sm:flex-row gap-5 items-center justify-between bg-stone-100 py-10 px-5 rounded-md shadow-sm">
-      <div className="flex flex-col items-center sm:items-start">
-        <label htmlFor="price" className="text-lg font-semibold mb-2">
+    <section className="flex flex-col sm:flex-row gap-5 items-center justify-left px-10 bg-gray-100 py-5 rounded-sm shadow-sm">
+      <div className="flex flex-col items-center sm:items-start mt-5">
+        <label htmlFor="price" className="text-lg font-semibold mb-3">
           Precio
         </label>
         <input

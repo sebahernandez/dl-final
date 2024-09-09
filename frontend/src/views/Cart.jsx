@@ -54,7 +54,7 @@ const Cart = ({ cartItems, removeFromCart }) => {
                 {formatPriceCLP(calculateTotal())}
               </span>
             </p>
-            <button className="w-full bg-stone-600 text-white py-2 px-4 rounded-md hover:bg-stone-500">
+            <button className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-stone-500">
               Proceder al Pago
             </button>
           </div>

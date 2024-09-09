@@ -2,12 +2,12 @@ import { NavLink, Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="bg-stone-600">
+    <footer className="bg-lime-600">
       <div className="container px-4 mx-auto">
         <div className="pt-24 pb-11 mx-auto max-w-4xl">
-          <Link to="/" className="block md:mx-auto mb-5 max-w-max" href="#">
+          <Link to="/" className="block md:mx-auto mb-5 max-w-max">
             <span className="font-bold text-4xl text-white">
-              Snekers<span className="text-white">Shop</span>👟
+              Snekers Store👟
             </span>
           </Link>
           <div className="flex flex-wrap justify-center -mx-3 lg:-mx-6">

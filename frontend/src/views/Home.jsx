@@ -1,9 +1,9 @@
-import { ProductsList } from "../components/product-list/ProductList";
+import { Slider } from "../components/slider/Slider";
 
 const Home = () => {
   return (
     <div>
-      <ProductsList />
+      <Slider />
     </div>
   );
 };
