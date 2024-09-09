@@ -5,7 +5,7 @@ import { formatPriceCLP } from "../utils/format-price/formatPrice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const ProductDetails = ({ addToCart }) => {
+const ProductDetails = ({ addToCart, addToFavorites }) => {
   const { name } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
@@ -44,6 +44,21 @@ const ProductDetails = ({ addToCart }) => {
 
     // Mostrar notificación usando React Toastify
     toast.success(`${product.name} añadido al carrito!`, {
+      position: "bottom-right",
+    });
+  };
+
+  const handleFavorites = () => {
+    if (!selectedSize) {
+      alert("Por favor selecciona una talla");
+      return;
+    }
+
+    // Añadir el producto a favoritos con la talla seleccionada
+    addToFavorites({ ...product, size: selectedSize });
+
+    // Mostrar notificación usando React Toastify
+    toast.success(`${product.name} añadido a favoritos!`, {
       position: "bottom-right",
     });
   };
@@ -118,7 +133,10 @@ const ProductDetails = ({ addToCart }) => {
                 </button>
               </div>
               <div className="w-1/2 px-2">
-                <button className="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600">
+                <button
+                  onClick={handleFavorites}
+                  className="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600"
+                >
                   Añadir a favoritos
                 </button>
               </div>

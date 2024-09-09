@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { IconCart } from "../icons/IconCart";
 import { UserIcon } from "../icons/UserIcon";
+import { FavoritesIcon } from "../icons/FavoritesIcon";
 
 export const Navbar = ({ cartItemCount }) => {
   return (
@@ -73,9 +74,13 @@ export const Navbar = ({ cartItemCount }) => {
           {/* Secondary Navigation */}
           <div className="hidden md:flex items-center space-x-3 relative">
             <NavLink to="/register">Crea tu cuenta</NavLink>
+            <NavLink to="/favorites">
+              <FavoritesIcon />
+            </NavLink>
             <NavLink to="/login">
               <UserIcon />
             </NavLink>
+
             <NavLink to="/cart">
               <IconCart />
               {cartItemCount > 0 && (
