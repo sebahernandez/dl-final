@@ -4,13 +4,13 @@ import { app as server } from "./src/server/app.js";
 
 const adminTest = {
   email: process.env.ADMIN_EMAIL, // Usa la variable de entorno
-  password: process.env.ADMIN_PASSWORD, // Usa la variable de entorno
+  password: process.env.ADMIN_PASSWORD || "defaultPassword",
   name: "admina",
 };
 
 const fakeAdminTest = {
   email: `admin${Math.random()}@gmail.com`,
-  password: process.env.ADMIN_PASSWORD,
+  password: process.env.ADMIN_PASSWORD || "defaultPassword",
   name: "admina",
 };
 const fakeProduct = {
