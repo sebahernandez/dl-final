@@ -140,9 +140,7 @@ export const Navbar = ({ cartItemCount }) => {
                     )}
                   </div>
                 ) : (
-                  <NavLink to="/login">
-                    <p className="text-lg">Ingresar</p>
-                  </NavLink>
+                  <NavLink to="/login">Ingresar</NavLink>
                 )}
               </div>
             </NavLink>

@@ -30,7 +30,7 @@ export const Slider = () => {
           pagination: false,
           autoplay: true,
         }}
-        aria-label="My Favorite Images"
+        aria-label="Slider Images"
       >
         {imagesSlider.map((image) => (
           <SplideSlide key={image.id}>

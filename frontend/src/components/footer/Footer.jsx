@@ -2,7 +2,7 @@ import { NavLink, Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <footer className="bg-lime-600">
+    <footer className="bg-black">
       <div className="container px-4 mx-auto">
         <div className="pt-24 pb-11 mx-auto max-w-4xl">
           <Link to="/" className="block md:mx-auto mb-5 max-w-max">

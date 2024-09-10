@@ -12,7 +12,7 @@ export const TopBar = ({ user }) => {
   };
 
   return (
-    <div className="bg-lime-600 text-white p-4">
+    <div className="bg-black text-white p-4">
       <div className="container mx-auto flex justify-center items-center text-center font-semibold">
         Despachos express 🚛 / Hasta 6 cuotas sin interés 💸 / Retira en tienda
         gratis 👟
