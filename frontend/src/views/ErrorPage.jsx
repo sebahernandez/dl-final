@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouteError } from "react-router-dom";
+import { useRouteError, Link } from "react-router-dom";
 
 const ErrorPage = () => {
   const error = useRouteError(); // Hook para obtener el error ocurrido en la ruta
@@ -13,12 +13,12 @@ const ErrorPage = () => {
         {error.statusText || error.message} {/* Mostrar el mensaje de error */}
       </p>
       <div className="mt-8">
-        <a href="/" className="text-blue-500 hover:underline">
-          Go back to Home
-        </a>
+        <Link to="/" className="text-blue-500 hover:underline">
+          Volver al inicio
+        </Link>
       </div>
     </div>
   );
 };
 
-export default ErrorPage
+export default ErrorPage;

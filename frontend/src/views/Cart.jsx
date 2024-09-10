@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { formatPriceCLP } from "../utils/format-price/formatPrice";
+import { AppContext } from "../context/AppContext";
 
-const Cart = ({ cartItems, removeFromCart }) => {
+const Cart = () => {
+  const { cartItems, removeFromCart } = useContext(AppContext);
   const calculateTotal = () => {
     return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   };

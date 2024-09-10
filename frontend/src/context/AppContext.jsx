@@ -43,27 +43,34 @@ const appReducer = (state, action) => {
         cartItems: action.payload.cartItems,
       };
 
-    case "REMOVE_FROM_CART":
-      return {
-        ...state,
-        cartItems: action.payload.cartItems,
-      };
-
     case "ADD_TO_FAVORITES":
       return {
         ...state,
         favorites: action.payload.favorites,
+        isFavorite: true,
       };
 
+    case "REMOVE_FROM_CART":
+      return removeItemFromState(state, "cartItems", action.payload.cartItems);
+
     case "REMOVE_FROM_FAVORITES":
-      return {
-        ...state,
-        favorites: action.payload.favorites,
-      };
+      return removeItemFromState(state, "favorites", action.payload.favorites);
 
     default:
       return state;
   }
+};
+
+// Función auxiliar para eliminar un ítem del estado
+const removeItemFromState = (state, itemKey, updatedItems) => {
+  const isFavoriteUpdated =
+    itemKey === "favorites" ? updatedItems.length > 0 : state.isFavorite;
+
+  return {
+    ...state,
+    [itemKey]: updatedItems,
+    isFavorite: isFavoriteUpdated,
+  };
 };
 
 export const AppProvider = ({ children }) => {
@@ -89,10 +96,6 @@ export const AppProvider = ({ children }) => {
     sessionStorage.removeItem("cartItems");
     dispatch({ type: "LOGOUT" });
   };
-
-  /*  const loadCartItems = (cartItems) => {
-    dispatch({ type: "ADD_TO_CART", payload: { cartItems } });
-  }; */
 
   // Función para actualizar los productos generales de la tienda
   const setProducts = (products) => {
@@ -177,6 +180,7 @@ export const AppProvider = ({ children }) => {
       storeProducts: state.storeProducts, // Estado para los productos generales
       cartItems: state.cartItems, // Estado para los productos en el carrito
       favorites: state.favorites, // Estado para los productos favoritos
+      isFavorite: state.isFavorite, // Estado para controlar si el producto está en favoritos
       setProducts, // Función para actualizar productos generales
       addToCart, // Función para añadir productos al carrito
       removeFromCart, // Función para eliminar productos del carrito
@@ -191,6 +195,7 @@ export const AppProvider = ({ children }) => {
       state.storeProducts,
       state.cartItems,
       state.favorites,
+      state.isFavorite,
     ]
   );
 
