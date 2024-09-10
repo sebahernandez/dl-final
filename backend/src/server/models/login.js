@@ -10,6 +10,6 @@ export const validateUser = async ({ email, password }) => {
     const err = { code: 401, message: 'Wrong password or email' }
     throw err
   }
-  const token = jwtSign({ email })
+  const token = jwtSign({ email, role: user.role })
   return token
 }
