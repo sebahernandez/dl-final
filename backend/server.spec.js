@@ -10,7 +10,7 @@ const adminTest = {
 
 const fakeAdminTest = {
   email: `admin${Math.random()}@gmail.com`,
-  password: "admin123a",
+  password: process.env.ADMIN_PASSWORD,
   name: "admina",
 };
 const fakeProduct = {
