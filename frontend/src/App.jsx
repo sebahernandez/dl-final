@@ -50,6 +50,7 @@ function App() {
                 <ProductDetails
                   addToCart={addToCart}
                   addToFavorites={addToFavorites}
+                  removeFromFavorites={removeFromFavorites}
                 />
               }
             />

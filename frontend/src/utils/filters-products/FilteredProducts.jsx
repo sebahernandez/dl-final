@@ -6,7 +6,6 @@ export function FilteredProducts(products, filters) {
       product.price >= filters.minPrice
     );
   });
-
-  console.log("Productos filtrados:", filtered); // Verifica los productos después de aplicar los filtros
+  // Verifica los productos después de aplicar los filtros
   return filtered;
 }

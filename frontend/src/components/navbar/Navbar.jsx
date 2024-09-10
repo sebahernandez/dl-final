@@ -1,10 +1,39 @@
-import React from "react";
+import { useContext, useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { IconCart } from "../icons/IconCart";
 import { UserIcon } from "../icons/UserIcon";
 import { FavoritesIcon } from "../icons/FavoritesIcon";
+import { AppContext } from "../../context/AppContext";
 
 export const Navbar = ({ cartItemCount }) => {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+  const { user, logout } = useContext(AppContext);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
+  const handleLogoutAndRedirect = async () => {
+    try {
+      await logout(); // Cierra la sesión, espera si es asíncrono
+      setDropdownOpen(false); // Cierra el dropdown
+      navigate("/login"); // Redirige a la página de login
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  };
+
   return (
     <nav className="bg-white shadow-lg">
       <div className="container mx-auto">
@@ -16,12 +45,12 @@ export const Navbar = ({ cartItemCount }) => {
                 to="/"
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center py-5 text-stone-600 font-bold"
-                    : "flex items-center py-5 text-gray-700 hover:text-gray-900"
+                    ? "flex items-center py-5 text-slate-600 font-bold"
+                    : "flex items-center py-5 text-slate-700 hover:text-slate-900"
                 }
               >
-                <span className="font-bold text-4xl text-stone-600">
-                  Snekers<span className="text-stone-400">Shop</span>👟
+                <span className="font-bold text-4xl text-black">
+                  SnekersStore 👟
                 </span>
               </NavLink>
             </div>
@@ -74,11 +103,50 @@ export const Navbar = ({ cartItemCount }) => {
           {/* Secondary Navigation */}
           <div className="hidden md:flex items-center space-x-3 relative">
             <NavLink to="/register">Crea tu cuenta</NavLink>
+
+            <NavLink>
+              <div className="relative">
+                {user?.email ? (
+                  <div className="relative" ref={dropdownRef}>
+                    <button
+                      onClick={() => setDropdownOpen(!dropdownOpen)}
+                      className="text-lg flex items-center gap-2"
+                    >
+                      {user.email}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </button>
+
+                    {/* Dropdown */}
+                    {dropdownOpen && (
+                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                        <button
+                          onClick={handleLogoutAndRedirect}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Cerrar sesión
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <NavLink to="/login">Ingresar</NavLink>
+                )}
+              </div>
+            </NavLink>
+
             <NavLink to="/favorites">
               <FavoritesIcon />
-            </NavLink>
-            <NavLink to="/login">
-              <UserIcon />
             </NavLink>
 
             <NavLink to="/cart">

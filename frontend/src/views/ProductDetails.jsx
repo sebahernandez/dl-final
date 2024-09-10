@@ -1,14 +1,18 @@
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../context/AppContext";
 import { useParams } from "react-router-dom";
 import { formatPriceCLP } from "../utils/format-price/formatPrice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const ProductDetails = ({ addToCart, addToFavorites }) => {
+const ProductDetails = ({ addToCart, addToFavorites, removeFromFavorites }) => {
   const { name } = useParams();
+  const { favorites } = useContext(AppContext);
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+  let isFavorite = false;
 
   useEffect(() => {
     const formatNameFromUrl = (name) => {
@@ -29,8 +33,12 @@ const ProductDetails = ({ addToCart, addToFavorites }) => {
       );
   }, [name]);
 
-  if (!product) {
-    return <div>Loading...</div>;
+  if (product) {
+    isFavorite = favorites.some(
+      (favItem) => favItem.id === product.id && favItem.size === selectedSize
+    );
+  } else {
+    isFavorite = false;
   }
 
   const handleAddToCart = () => {
@@ -54,14 +62,22 @@ const ProductDetails = ({ addToCart, addToFavorites }) => {
       return;
     }
 
-    // Añadir el producto a favoritos con la talla seleccionada
-    addToFavorites({ ...product, size: selectedSize });
-
-    // Mostrar notificación usando React Toastify
-    toast.success(`${product.name} añadido a favoritos!`, {
-      position: "bottom-right",
-    });
+    if (isFavorite) {
+      removeFromFavorites(product.id, selectedSize);
+      toast.success(`${product.name} eliminado de favoritos!`, {
+        position: "bottom-right",
+      });
+    } else {
+      addToFavorites({ ...product, size: selectedSize });
+      toast.success(`${product.name} añadido a favoritos!`, {
+        position: "bottom-right",
+      });
+    }
   };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="py-8 flex justify-center items-center">
@@ -135,9 +151,14 @@ const ProductDetails = ({ addToCart, addToFavorites }) => {
               <div className="w-1/2 px-2">
                 <button
                   onClick={handleFavorites}
-                  className="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600"
+                  className="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center justify-center"
                 >
-                  Añadir a favoritos
+                  {isFavorite ? (
+                    <FaHeart className="mr-2 text-red-500" />
+                  ) : (
+                    <FaRegHeart className="mr-2 text-gray-500" />
+                  )}
+                  {isFavorite ? "Favorito" : "Añadir a favoritos"}
                 </button>
               </div>
             </div>
