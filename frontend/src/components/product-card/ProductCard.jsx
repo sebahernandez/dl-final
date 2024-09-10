@@ -21,7 +21,7 @@ export const ProductCard = ({ product }) => {
       >
         {product.name}
       </Link>
-      <p className="text-lg font-semibold text-stone-600 mt-4">
+      <p className="text-lg  text-gray-700 mt-4">
         {formatPriceCLP(product.price)}
       </p>
       <p className="text-sm text-gray-600"> {product.marca}</p>

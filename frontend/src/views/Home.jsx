@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
-import { AppContext } from "../context/AppContext";
-import { ProductsList } from "../components/product-list/ProductList";
+import { SliderProducts } from "../components/slider-products/SliderProducts";
+import { Slider } from "../components/slider/Slider";
 
 const Home = () => {
-  const { user } = useContext(AppContext);
-
   return (
     <div>
-      <ProductsList />
+      <Slider />
+      <SliderProducts />
     </div>
   );
 };
 
-export default Home
+export default Home;

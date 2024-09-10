@@ -1,8 +1,9 @@
+import { ProductsList } from "../components/product-list/ProductList";
+
 const Shop = () => {
   return (
-    <section className="container mx-auto">
-      <h1>Shop</h1>
-      <p>Check out our products!</p>
+    <section className="container mx-auto py-10">
+      <ProductsList />
     </section>
   );
 };

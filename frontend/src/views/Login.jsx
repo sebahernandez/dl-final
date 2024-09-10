@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
 const Login = () => {
-  const { user, login } = useContext(AppContext);
-
+  const { login } = useContext(AppContext); // Usamos `login` desde el contexto
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -12,11 +11,19 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // aqui va la logica de autenticacion
+    // Aquí podrías hacer una llamada a una API para autenticar al usuario.
+    // const response = await apiLogin(email, password);
+    // if (response.success) { ... }
 
-    login({ user, email, rol: "admin" }, "123456");
+    // Simulamos autenticación
+    const user = { email, rol: "admin" }; // Simulamos usuario con rol de admin
+    const token = "123456"; // Token simulado
 
-    navigate("/");
+    // Llamamos a la función login del contexto para actualizar el estado global
+    login(user, token);
+
+    // Redirigimos al usuario a la página de administración después del login
+    navigate("/admin");
   };
 
   const background = {

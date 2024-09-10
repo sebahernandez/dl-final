@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ProductCard } from "../product-card/ProductCard";
 import { FilteredProducts } from "../../utils/filters-products/FilteredProducts";
 import { Filters } from "../filters/Filters";
+import { AppContext } from "../../context/AppContext";
 
 export const ProductsList = () => {
-  const [products, setProducts] = useState([]);
+  const { storeProducts: products, setProducts } = useContext(AppContext);
   const [priceRange, setPriceRange] = useState(0);
   const [category, setCategory] = useState("all");
+  const [gender, setGender] = useState("all");
 
   useEffect(() => {
+    if (products.length > 0) return;
+
     fetch("/data/products.json")
       .then((response) => response.json())
       .then((data) => setProducts(data))
@@ -18,6 +22,7 @@ export const ProductsList = () => {
   const filters = {
     minPrice: priceRange,
     category: category,
+    gender: gender,
   };
 
   const filterProducts = FilteredProducts(products, filters);
@@ -30,6 +35,8 @@ export const ProductsList = () => {
           setPriceRange={setPriceRange}
           category={category}
           setCategory={setCategory}
+          gender={gender}
+          setGender={setGender}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-0 py-5">

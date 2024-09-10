@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../context/AppContext";
 import { useParams } from "react-router-dom";
 import { formatPriceCLP } from "../utils/format-price/formatPrice";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const ProductDetails = () => {
+const ProductDetails = ({ addToCart, addToFavorites, removeFromFavorites }) => {
   const { name } = useParams();
+  const { favorites } = useContext(AppContext);
   const [product, setProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  let isFavorite = false;
 
   useEffect(() => {
     const formatNameFromUrl = (name) => {
@@ -24,6 +32,48 @@ const ProductDetails = () => {
         console.error("Error fetching product details:", error)
       );
   }, [name]);
+
+  if (product) {
+    isFavorite = favorites.some(
+      (favItem) => favItem.id === product.id && favItem.size === selectedSize
+    );
+  } else {
+    isFavorite = false;
+  }
+
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert("Por favor selecciona una talla");
+      return;
+    }
+
+    // Añadir el producto al carrito con la talla seleccionada
+    addToCart({ ...product, size: selectedSize });
+
+    // Mostrar notificación usando React Toastify
+    toast.success(`${product.name} añadido al carrito!`, {
+      position: "bottom-right",
+    });
+  };
+
+  const handleFavorites = () => {
+    if (!selectedSize) {
+      alert("Por favor selecciona una talla");
+      return;
+    }
+
+    if (isFavorite) {
+      removeFromFavorites(product.id, selectedSize);
+      toast.success(`${product.name} eliminado de favoritos!`, {
+        position: "bottom-right",
+      });
+    } else {
+      addToFavorites({ ...product, size: selectedSize });
+      toast.success(`${product.name} añadido a favoritos!`, {
+        position: "bottom-right",
+      });
+    }
+  };
 
   if (!product) {
     return <div>Loading...</div>;
@@ -70,32 +120,45 @@ const ProductDetails = () => {
 
             <div className="mb-4">
               <span className="font-bold text-gray-700 dark:text-gray-300 py-10">
-                Selecionar numero:
+                Seleccionar número:
               </span>
               <div className="flex items-center mt-2">
-                {
-                  // Array.from() creates a new array from the given argument
-                  product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      className="mr-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600"
-                    >
-                      {size}
-                    </button>
-                  ))
-                }
+                {product.sizes.map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`mr-2 py-2 px-4 rounded-full font-bold ${
+                      selectedSize === size
+                        ? "bg-gray-900 text-white"
+                        : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
+                    } hover:bg-gray-300 dark:hover:bg-gray-600`}
+                  >
+                    {size}
+                  </button>
+                ))}
               </div>
             </div>
 
             <div className="flex -mx-2 mb-4 py-5">
               <div className="w-1/2 px-2">
-                <button className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
+                <button
+                  onClick={handleAddToCart}
+                  className="w-full bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700"
+                >
                   Añadir al carrito
                 </button>
               </div>
               <div className="w-1/2 px-2">
-                <button className="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600">
-                  Añadir a favoritos
+                <button
+                  onClick={handleFavorites}
+                  className="w-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-2 px-4 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600 flex items-center justify-center"
+                >
+                  {isFavorite ? (
+                    <FaHeart className="mr-2 text-red-500" />
+                  ) : (
+                    <FaRegHeart className="mr-2 text-gray-500" />
+                  )}
+                  {isFavorite ? "Favorito" : "Añadir a favoritos"}
                 </button>
               </div>
             </div>
@@ -104,6 +167,10 @@ const ProductDetails = () => {
       </div>
     </div>
   );
+};
+
+ProductDetails.propTypes = {
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;
