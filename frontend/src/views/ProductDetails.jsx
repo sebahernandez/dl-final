@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { useParams } from "react-router-dom";
