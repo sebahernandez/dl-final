@@ -1,7 +1,6 @@
-import dotenv from "dotenv";
-dotenv.config(); // Asegúrate de que dotenv se cargue lo antes posible
-import request from "supertest";
-import { app as server } from "./src/server/app.js";
+import 'dotenv/config'
+import request from "supertest"
+import { app as server } from "./src/server/app.js"
 
 // Verifica que las variables de entorno están correctamente cargadas
 if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD) {
@@ -10,6 +9,7 @@ if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD) {
   );
 }
 
+console.log(process.env.ADMIN_EMAIL)
 const adminTest = {
   email: process.env.ADMIN_EMAIL,
   password: process.env.ADMIN_PASSWORD || "defaultPassword",
