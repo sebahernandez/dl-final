@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
@@ -7,11 +8,11 @@ const NotFound = () => {
       <p className="text-xl mt-4">
         Oops! Parece que la página que buscas no existe.
       </p>
-      <a href="/" className="mt-6 text-blue-500 hover:underline">
+      <Link to="/" className="mt-6 text-blue-500 hover:underline">
         Volver al inicio
-      </a>
+      </Link>
     </div>
   );
 };
 
-export default NotFound
+export default NotFound;

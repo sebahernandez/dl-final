@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
-const Favorites = ({ favorites, removeFromFavorites }) => {
+const Favorites = () => {
+  const { favorites, removeFromFavorites } = useContext(AppContext);
+
   const handleRemoveFromFavorites = (id, size) => {
     removeFromFavorites(id, size);
   };

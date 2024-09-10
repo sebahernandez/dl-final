@@ -7,12 +7,19 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-const ProductDetails = ({ addToCart, addToFavorites, removeFromFavorites }) => {
+const ProductDetails = () => {
   const { name } = useParams();
-  const { favorites } = useContext(AppContext);
+  const { favorites, addToCart, addToFavorites, removeFromFavorites } =
+    useContext(AppContext);
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-  let isFavorite = false;
+
+  const isFavorite = favorites.some(
+    (fav) => fav.id === product?.id && fav.size === selectedSize
+  );
+
+  console.log("Favorites:", favorites); // Verifica los productos en favoritos
+  console.log("isFavorite:", isFavorite); // Verifica si isFavorite cambia
 
   useEffect(() => {
     const formatNameFromUrl = (name) => {
@@ -32,14 +39,6 @@ const ProductDetails = ({ addToCart, addToFavorites, removeFromFavorites }) => {
         console.error("Error fetching product details:", error)
       );
   }, [name]);
-
-  if (product) {
-    isFavorite = favorites.some(
-      (favItem) => favItem.id === product.id && favItem.size === selectedSize
-    );
-  } else {
-    isFavorite = false;
-  }
 
   const handleAddToCart = () => {
     if (!selectedSize) {
@@ -64,11 +63,13 @@ const ProductDetails = ({ addToCart, addToFavorites, removeFromFavorites }) => {
 
     if (isFavorite) {
       removeFromFavorites(product.id, selectedSize);
+
       toast.success(`${product.name} eliminado de favoritos!`, {
         position: "bottom-right",
       });
     } else {
       addToFavorites({ ...product, size: selectedSize });
+
       toast.success(`${product.name} añadido a favoritos!`, {
         position: "bottom-right",
       });
@@ -167,10 +168,6 @@ const ProductDetails = ({ addToCart, addToFavorites, removeFromFavorites }) => {
       </div>
     </div>
   );
-};
-
-ProductDetails.propTypes = {
-  addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;

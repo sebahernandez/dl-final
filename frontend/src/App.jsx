@@ -20,14 +20,7 @@ import { ToastContainer } from "react-toastify"; // Importar ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Importar el CSS de Toastify
 
 function App() {
-  const {
-    cartItems,
-    addToCart,
-    removeFromCart,
-    addToFavorites,
-    favorites,
-    removeFromFavorites,
-  } = useContext(AppContext);
+  const { cartItems } = useContext(AppContext);
 
   return (
     <div>
@@ -39,36 +32,14 @@ function App() {
             element={<RootLayout cartItemCount={cartItems.length} />}
           >
             <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop addToCart={addToCart} />} />
+            <Route path="/shop" element={<Shop />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route
-              path="/product/:name"
-              element={
-                <ProductDetails
-                  addToCart={addToCart}
-                  addToFavorites={addToFavorites}
-                  removeFromFavorites={removeFromFavorites}
-                />
-              }
-            />
-            <Route
-              path="/cart"
-              element={
-                <Cart cartItems={cartItems} removeFromCart={removeFromCart} />
-              }
-            />
-            <Route
-              path="favorites"
-              element={
-                <Favorites
-                  favorites={favorites}
-                  removeFromFavorites={removeFromFavorites}
-                />
-              }
-            />
+            <Route path="/product/:name" element={<ProductDetails />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="favorites" element={<Favorites />} />
             <Route path="*" element={<NotFound />} />
             <Route
               path="/admin"

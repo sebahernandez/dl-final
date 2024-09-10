@@ -1,12 +1,11 @@
 import { useContext, useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { IconCart } from "../icons/IconCart";
-import { UserIcon } from "../icons/UserIcon";
 import { FavoritesIcon } from "../icons/FavoritesIcon";
 import { AppContext } from "../../context/AppContext";
 
-export const Navbar = ({ cartItemCount }) => {
+export const Navbar = () => {
+  const { cartItems } = useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -151,9 +150,9 @@ export const Navbar = ({ cartItemCount }) => {
 
             <NavLink to="/cart">
               <IconCart />
-              {cartItemCount > 0 && (
+              {cartItems.length > 0 && (
                 <span className="absolute top-6 -right-2 w-5 h-5 text-center bg-red-500 text-white rounded-full text-sm flex justify-center items-center ">
-                  {cartItemCount}
+                  {cartItems.length}
                 </span>
               )}
             </NavLink>
