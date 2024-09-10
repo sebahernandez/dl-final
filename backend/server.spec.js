@@ -1,9 +1,17 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+dotenv.config(); // Asegúrate de que dotenv se cargue lo antes posible
 import request from "supertest";
 import { app as server } from "./src/server/app.js";
 
+// Verifica que las variables de entorno están correctamente cargadas
+if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD) {
+  throw new Error(
+    "Missing environment variables ADMIN_EMAIL or ADMIN_PASSWORD"
+  );
+}
+
 const adminTest = {
-  email: process.env.ADMIN_EMAIL, // Usa la variable de entorno
+  email: process.env.ADMIN_EMAIL,
   password: process.env.ADMIN_PASSWORD || "defaultPassword",
   name: "admina",
 };
@@ -13,6 +21,7 @@ const fakeAdminTest = {
   password: process.env.ADMIN_PASSWORD || "defaultPassword",
   name: "admina",
 };
+
 const fakeProduct = {
   name: "productofalso",
   description: "descripcionfalsa",
