@@ -21,7 +21,7 @@ export const Slider = () => {
   ];
 
   return (
-    <div className="slider container mx-auto py-10">
+    <div className="slider container mx-auto ">
       <Splide
         options={{
           rewind: true,
