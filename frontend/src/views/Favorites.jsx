@@ -1,11 +1,16 @@
 import React, { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { Link } from "react-router-dom";
 
 const Favorites = () => {
   const { favorites, removeFromFavorites } = useContext(AppContext);
 
   const handleRemoveFromFavorites = (id, size) => {
     removeFromFavorites(id, size);
+  };
+  
+  const formatNameForUrl = (name) => {
+    return name.toLowerCase().replace(/ /g, "-");
   };
 
   return (
@@ -33,15 +38,19 @@ const Favorites = () => {
                 alt={product.name}
                 className="w-full h-48 object-cover rounded-md mb-4"
               />
-              <h2 className="text-xl font-semibold text-gray-800 mb-2">
+              <Link
+                to={`/product/${formatNameForUrl(product.name)}`}
+                href="#"
+                className="text-xl font-bold mt-4 underline"
+              >
                 {product.name}
-              </h2>
+              </Link>
               <p className="text-gray-500 mb-4">{product.price}</p>
               <button
                 onClick={() =>
                   handleRemoveFromFavorites(product.id, product.size)
                 }
-                className="w-full bg-stone-500 text-white py-2 px-4 rounded-md hover:bg-stone-600 transition-colors"
+                className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-700 transition-colors"
               >
                 Quitar de favoritos
               </button>

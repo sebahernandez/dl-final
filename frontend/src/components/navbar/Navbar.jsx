@@ -34,7 +34,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-white shadow-md px-5">
       <div className="container mx-auto">
         <div className="flex justify-between">
           {/* Logo */}
@@ -48,7 +48,7 @@ export const Navbar = () => {
                     : "flex items-center py-5 text-slate-700 hover:text-slate-900"
                 }
               >
-                <span className="font-bold text-4xl text-black">
+                <span className="font-bold text-xl md:text-4xl text-black">
                   SnekersStore 👟
                 </span>
               </NavLink>

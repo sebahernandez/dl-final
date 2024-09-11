@@ -23,14 +23,24 @@ export const SliderProducts = () => {
   };
 
   return (
-    <div className="slider-products container mx-auto py-10">
+    <div className="slider-products container mx-auto my-10">
       <Splide
         options={{
           rewind: true,
           gap: "1rem",
-          perPage: 4,
+          perPage: 4, // Mostrará 4 tarjetas en vista de escritorio
           pagination: false,
           autoplay: true,
+          breakpoints: {
+            640: {
+              perPage: 1, // Mostrará 1 tarjeta en vista móvil (640px o menos)
+              gap: "0.5rem", // Ajusta el espacio entre las tarjetas en vista móvil
+            },
+            1024: {
+              perPage: 2, // Mostrará 2 tarjetas en vista de tablet (1024px o menos)
+              gap: "1rem", // Ajusta el espacio entre las tarjetas en tablet
+            },
+          },
         }}
         aria-label="popular products"
       >
