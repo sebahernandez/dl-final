@@ -1,9 +1,9 @@
-import { Router } from 'express'
-import { setUser } from '../controller/register.js'
-import { authToken } from '../middleware/authToken.js'
+import { Router } from "express";
+import { setUser } from "../controller/register.js";
+import { authToken } from "../middleware/authToken.js";
 
-const register = (Router())
+const register = Router();
 
-register.post('/', setUser)
+register.post("/", authToken, setUser);
 
-export default register
+export default register;

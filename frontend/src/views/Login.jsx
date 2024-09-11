@@ -8,21 +8,31 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Aquí podrías hacer una llamada a una API para autenticar al usuario.
-    // const response = await apiLogin(email, password);
-    // if (response.success) { ... }
+    // Llamada a una API para autenticar al usuario.
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    // Simulamos autenticación
-    const user = { email, rol: "admin" }; // Simulamos usuario con rol de admin
-    const token = "123456"; // Token simulado
+      const data = await response.json();
 
-    // Llamamos a la función login del contexto para actualizar el estado global
-    login(user, token);
-
-    // Redirigimos al usuario a la página de administración después del login
+      if (response.ok) {
+        const { user, token } = data;
+        login(user, token);
+        navigate("/admin"); // Redirige al usuario después de iniciar sesión
+      } else {
+        console.error("Error en la autenticación:", data.message);
+      }
+    } catch (error) {
+      console.error("Error en la llamada a la API:", error);
+    }
     navigate("/admin");
   };
 

@@ -42,15 +42,11 @@ export const Navbar = () => {
             <div>
               <NavLink
                 to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "flex items-center py-5 text-slate-600 font-bold"
-                    : "flex items-center py-5 text-slate-700 hover:text-slate-900"
+                className={
+                  "flex items-center py-5 font-bold text-xl md:text-4xl text-black"
                 }
               >
-                <span className="font-bold text-xl md:text-4xl text-black">
-                  SnekersStore 👟
-                </span>
+                SnekersStore 👟
               </NavLink>
             </div>
           </div>
@@ -102,47 +98,44 @@ export const Navbar = () => {
           {/* Secondary Navigation */}
           <div className="hidden md:flex items-center space-x-3 relative">
             <NavLink to="/register">Crea tu cuenta</NavLink>
-
-            <NavLink>
-              <div className="relative">
-                {user?.email ? (
-                  <div className="relative" ref={dropdownRef}>
-                    <button
-                      onClick={() => setDropdownOpen(!dropdownOpen)}
-                      className="text-lg flex items-center gap-2"
+            <div className="relative">
+              {user?.email ? (
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className="text-lg flex items-center gap-2"
+                  >
+                    {user.email}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
                     >
-                      {user.email}
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </button>
+                      <path
+                        fillRule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
 
-                    {/* Dropdown */}
-                    {dropdownOpen && (
-                      <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                        <button
-                          onClick={handleLogoutAndRedirect}
-                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          Cerrar sesión
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <NavLink to="/login">Ingresar</NavLink>
-                )}
-              </div>
-            </NavLink>
+                  {/* Dropdown */}
+                  {dropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                      <button
+                        onClick={handleLogoutAndRedirect}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        Cerrar sesión
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <NavLink to="/login">Ingresar</NavLink>
+              )}
+            </div>
 
             <NavLink to="/favorites">
               <FavoritesIcon />

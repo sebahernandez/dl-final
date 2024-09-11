@@ -14,15 +14,28 @@ const Register = () => {
     e.preventDefault();
 
     // Aquí podrías enviar los datos al backend para registrar al usuario.
-    // Simulando una respuesta de registro exitoso:
-    const registeredUser = { email, rol: "user" };
-    const token = "fake-jwt-token"; // Aquí deberías recibir el token real del backend
 
-    // Guarda el estado del usuario y el token usando la función login del contexto
-    login(registeredUser, token);
+    try {
+      const response = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
 
-    // Navega a la página de inicio después de registrarse
-    navigate("/");
+      const data = await response.json();
+
+      if (response.ok) {
+        const { user, token } = data;
+        login(user, token);
+        navigate("/admin"); // Redirige al usuario después de registrarse
+      } else {
+        console.error("Error en el registro:", data.message);
+      }
+    } catch (error) {
+      console.error("Error en la llamada a la API:", error);
+    }
   };
 
   const background = {
