@@ -9,11 +9,13 @@ export const ProductCard = ({ product }) => {
 
   return (
     <div className="border rounded-lg shadow-sms p-4">
-      <img
-        src={product.image}
-        alt={product.name}
-        className="w-full h-50 object-cover rounded-md"
-      />
+      <Link to={`/product/${formatNameForUrl(product.name)}`}>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-48 object-cover"
+        />
+      </Link>
       <Link
         to={`/product/${formatNameForUrl(product.name)}`}
         href="#"

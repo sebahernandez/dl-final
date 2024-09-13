@@ -7,7 +7,6 @@ import { formatPriceCLP } from "../../utils/format-price/formatPrice";
 
 export const SliderProducts = () => {
   const { storeProducts: products, setProducts } = useContext(AppContext);
-  console.log(products);
 
   useEffect(() => {
     if (products.length > 0) return;

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { Link } from "react-router-dom";
+import { formatPriceCLP } from "../utils/format-price/formatPrice";
 
 const Favorites = () => {
   const { favorites, removeFromFavorites } = useContext(AppContext);
@@ -8,7 +9,7 @@ const Favorites = () => {
   const handleRemoveFromFavorites = (id, size) => {
     removeFromFavorites(id, size);
   };
-  
+
   const formatNameForUrl = (name) => {
     return name.toLowerCase().replace(/ /g, "-");
   };
@@ -33,11 +34,13 @@ const Favorites = () => {
               key={product.id}
               className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
             >
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-48 object-cover rounded-md mb-4"
-              />
+              <Link to={`/product/${formatNameForUrl(product.name)}`}>
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-48 object-cover"
+                />
+              </Link>
               <Link
                 to={`/product/${formatNameForUrl(product.name)}`}
                 href="#"
@@ -45,7 +48,12 @@ const Favorites = () => {
               >
                 {product.name}
               </Link>
-              <p className="text-gray-500 mb-4">{product.price}</p>
+              <p className="text-gray-700 my-2">
+                {formatPriceCLP(product.price)}
+              </p>
+              <p className="text-gray-700 mb-4">
+                <strong>Talla:</strong> {product.size.toUpperCase()}
+              </p>
               <button
                 onClick={() =>
                   handleRemoveFromFavorites(product.id, product.size)

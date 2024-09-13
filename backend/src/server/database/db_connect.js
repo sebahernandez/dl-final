@@ -9,6 +9,7 @@ const config = {
   port: process.env.DB_PORT,
   database: process.env.DB_DATABASE,
   allowExitOnIdle: true,
+  // ssl: true,
 };
 
 const pool = new Pool(config);
