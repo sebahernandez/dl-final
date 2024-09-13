@@ -1,9 +1,13 @@
-import jwt from 'jsonwebtoken'
+import dotenv from "dotenv";
 
-const JWTKEY = process.env.JWT_KEY
+dotenv.config();
+import jwt from "jsonwebtoken";
 
-export const jwtSign = (payload) => jwt.sign(payload, JWTKEY, { expiresIn: '1h' })
+const JWTKEY = process.env.JWT_KEY;
 
-export const jwtVerify = (token) => jwt.verify(token, JWTKEY)
+export const jwtSign = (payload) =>
+  jwt.sign(payload, JWTKEY, { expiresIn: "1h" });
 
-export const jwtDecode = (token) => jwt.decode(token, JWTKEY)
+export const jwtVerify = (token) => jwt.verify(token, JWTKEY);
+
+export const jwtDecode = (token) => jwt.decode(token, JWTKEY);

@@ -1,18 +1,23 @@
-import { jwtVerify } from '../../utils/jwt.js'
+import { jwtVerify } from "../../utils/jwt.js";
 
 export const authToken = (req, res, next) => {
-  const authorization = req.header('Authorization')
+  const authorization = req.header("Authorization");
 
-  if (authorization === undefined) res.status(401).json({ message: 'Sin token' })
+  if (authorization === undefined) {
+    return res.status(401).json({ message: "Sin token" });
+  }
 
-  const [bearer, token] = authorization.split(' ')
+  const [bearer, token] = authorization.split(" ");
+  console.log("Token valido", token);
 
-  if (bearer !== 'Bearer') res.status(401).json({ message: 'Sin autorizacion' })
+  if (bearer !== "Bearer") {
+    return res.status(401).json({ message: "Sin autorizacion" });
+  }
 
   try {
-    jwtVerify(token)
-    next()
+    jwtVerify(token);
+    next();
   } catch (error) {
-    res.status(401).json({ message: 'Token invalido' })
+    res.status(401).json({ message: "Token invalido" });
   }
-}
+};
