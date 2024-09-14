@@ -1,9 +1,14 @@
 import db from "../database/db_connect.js";
 import bcrypt from "bcryptjs";
 
-export const setUser = async ({ email, password, role = "user", name }) => {
+export const registerUser = async ({ name, email, password }) => {
   const query =
-    "INSERT INTO users (email, password, role, name ) VALUES ( $1, $2, $3, $4 )"; // se evita retornar el mensaje para no exponer la clave.
-  password = bcrypt.hashSync(password); // se hashea antes de guardar.
-  await db(query, [email, password, role, name]);
+    "INSERT INTO users (email, password, name, registerdate) VALUES ($1, $2, $3, $4) RETURNING *";
+
+  const hashedPassword = bcrypt.hashSync(password);
+  const currentDate = new Date();
+
+  const result = await db(query, [email, hashedPassword, name, currentDate]);
+
+  return result.rows;
 };

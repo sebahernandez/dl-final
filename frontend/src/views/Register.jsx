@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { login } = useContext(AppContext); // Importa la función login desde el contexto
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,8 +12,6 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
-    // Aquí podrías enviar los datos al backend para registrar al usuario.
 
     try {
       const response = await fetch("http://localhost:3000/register", {
@@ -27,11 +25,18 @@ const Register = () => {
       const data = await response.json();
 
       if (response.ok) {
-        const { user, token } = data;
-        login(user, token);
-        navigate("/admin"); // Redirige al usuario después de registrarse
+        const { user } = data;
+
+        login(user);
+        navigate("/");
+        toast.success(`${user.email} registrado con exito`, {
+          position: "bottom-right",
+        });
       } else {
         console.error("Error en el registro:", data.message);
+        toast.error(data.message || "Error en el registro", {
+          position: "bottom-right",
+        });
       }
     } catch (error) {
       console.error("Error en la llamada a la API:", error);
@@ -100,6 +105,7 @@ const Register = () => {
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
               />
             </div>
+
             <button
               type="submit"
               className="w-full bg-stone-600 text-white py-2 px-4 rounded-md hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2"
