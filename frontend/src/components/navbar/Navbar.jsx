@@ -25,9 +25,9 @@ export const Navbar = () => {
 
   const handleLogoutAndRedirect = async () => {
     try {
-      await logout(); // Cierra la sesión, espera si es asíncrono
-      setDropdownOpen(false); // Cierra el dropdown
-      navigate("/login"); // Redirige a la página de login
+      await logout();
+      setDropdownOpen(false);
+      navigate("/login");
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
@@ -97,7 +97,9 @@ export const Navbar = () => {
 
           {/* Secondary Navigation */}
           <div className="hidden md:flex items-center space-x-3 relative">
-            <NavLink to="/register">Crea tu cuenta</NavLink>
+            <NavLink to="/register">
+              {user?.name ? user.name : "Crea tu cuenta"}
+            </NavLink>
             <div className="relative">
               {user?.email ? (
                 <div className="relative" ref={dropdownRef}>

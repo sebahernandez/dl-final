@@ -32,7 +32,6 @@ const Login = () => {
     } catch (error) {
       console.error("Error en la llamada a la API:", error);
     }
-    navigate("/admin");
   };
 
   const background = {
