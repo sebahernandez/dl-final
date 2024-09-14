@@ -1,11 +1,16 @@
 import React, { useContext } from "react";
 import { formatPriceCLP } from "../utils/format-price/formatPrice";
 import { AppContext } from "../context/AppContext";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const { cartItems, removeFromCart } = useContext(AppContext);
   const calculateTotal = () => {
     return cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  };
+
+  const formatNameForUrl = (name) => {
+    return name.toLowerCase().replace(/ /g, "-");
   };
 
   return (
@@ -21,16 +26,23 @@ const Cart = () => {
           <div>
             {cartItems.map((item, index) => (
               <div
-                key={index} // Usamos id y size para manejar productos iguales con tallas diferentes
+                key={index}
                 className="flex items-center justify-between bg-white p-4 mb-4 rounded-lg shadow-sm border-2 border-stone-100"
               >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-16 h-16 object-cover rounded-md"
-                />
+                <Link to={`/product/${formatNameForUrl(item.name)}`}>
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-48 object-cover"
+                  />
+                </Link>
                 <div className="flex-grow ml-4">
-                  <h3 className="text-lg font-semibold">{item.name}</h3>
+                  <Link
+                    to={`/product/${formatNameForUrl(item.name)}`}
+                    className="font-bold text-xl undeline"
+                  >
+                    {item.name}
+                  </Link>
                   <p className="text-gray-600">
                     Precio: {formatPriceCLP(item.price)}
                   </p>
