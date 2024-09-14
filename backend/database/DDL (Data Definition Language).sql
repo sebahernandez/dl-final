@@ -1,4 +1,4 @@
--- Removed sequence for visits
+
 CREATE SEQUENCE carts_cartid_seq;
 CREATE SEQUENCE carts_products_cart_productid_seq;
 CREATE SEQUENCE categories_categoryid_seq;
@@ -6,7 +6,7 @@ CREATE SEQUENCE orders_orderid_seq;
 CREATE SEQUENCE products_productid_seq;
 CREATE SEQUENCE users_userid_seq;
 
--- Removed visitid column and related foreign key constraint
+
 CREATE TABLE carts (
   cartid integer NOT NULL DEFAULT nextval('carts_cartid_seq') PRIMARY KEY,
   creationdate varchar NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE categories (
   name varchar NOT NULL
 );
 
--- Removed visitid column and related foreign key constraint
+
 CREATE TABLE orders (
   orderid integer NOT NULL DEFAULT nextval('orders_orderid_seq') PRIMARY KEY,
   cartid integer NOT NULL,
@@ -49,16 +49,13 @@ CREATE TABLE products (
 
 CREATE TABLE users (
   userid integer NOT NULL DEFAULT nextval('users_userid_seq') PRIMARY KEY,
+  name varchar NOT NULL,
   email varchar NOT NULL UNIQUE,
   password varchar NOT NULL,
-  direction varchar NOT NULL,
-  phone integer NOT NULL,
-  role varchar NOT NULL,
-  registerdate varchar
+  registerdate timestamp NOT NULL,
 );
 
 
--- Foreign key constraints
 ALTER TABLE orders ADD CONSTRAINT orders_cartid_fk FOREIGN KEY (cartid) REFERENCES carts (cartid);
 ALTER TABLE orders ADD CONSTRAINT orders_userid_fk FOREIGN KEY (userid) REFERENCES users (userid);
 ALTER TABLE carts ADD CONSTRAINT carts_userid_fk FOREIGN KEY (userid) REFERENCES users (userid);

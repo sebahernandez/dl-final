@@ -15,9 +15,11 @@ export const authToken = (req, res, next) => {
   }
 
   try {
-    jwtVerify(token);
+    const decoded = jwtVerify(token);
+    req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).json({ message: "Token invalido" });
+    console.error("Error al verificar el token:", error);
+    return res.status(401).json({ message: "Token invalido" });
   }
 };

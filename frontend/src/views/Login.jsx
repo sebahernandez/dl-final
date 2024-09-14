@@ -11,7 +11,6 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Llamada a una API para autenticar al usuario.
     try {
       const response = await fetch("http://localhost:3000/login", {
         method: "POST",
@@ -26,7 +25,7 @@ const Login = () => {
       if (response.ok) {
         const { user, token } = data;
         login(user, token);
-        navigate("/admin"); // Redirige al usuario después de iniciar sesión
+        navigate("/");
       } else {
         console.error("Error en la autenticación:", data.message);
       }

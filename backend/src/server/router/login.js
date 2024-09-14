@@ -1,9 +1,8 @@
 import { Router } from "express";
 import { validateUser } from "../controller/login.js";
-import { authToken } from "../middleware/authToken.js";
 
 const login = Router();
 
-login.post("/", authToken, validateUser);
+login.post("/", validateUser);
 
 export default login;
