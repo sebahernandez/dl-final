@@ -1,22 +1,34 @@
 import PropTypes from "prop-types";
-import React, { createContext, useReducer, useMemo } from "react";
+import React, { createContext, useReducer, useMemo, useEffect } from "react";
 
 export const AppContext = createContext();
 
+const user = JSON.parse(localStorage.getItem("user")) ?? {
+  email: null,
+  rol: null,
+};
+
 const initialState = {
-  user: JSON.parse(sessionStorage.getItem("user")) ?? {
-    email: null,
-    rol: null,
-  },
-  token: sessionStorage.getItem("token") ?? null,
-  cartItems: JSON.parse(sessionStorage.getItem("cartItems")) ?? [],
-  favorites: JSON.parse(sessionStorage.getItem("favorites")) ?? [],
+  user,
+  token: localStorage.getItem("token") ?? null,
+  cartItems: user.email
+    ? JSON.parse(localStorage.getItem(`cartItems_${user.email}`)) ?? []
+    : [],
+  favorites: user.email
+    ? JSON.parse(localStorage.getItem(`favorites_${user.email}`)) ?? []
+    : [],
   storeProducts: [],
+  isFavorite: false,
 };
 
 // Reducer para manejar el estado de usuario y token
 const appReducer = (state, action) => {
   switch (action.type) {
+    case "SET_CART_ITEMS":
+      return {
+        ...state,
+        cartItems: action.payload.cartItems,
+      };
     case "SET_PRODUCTS":
       return {
         ...state,
@@ -36,11 +48,20 @@ const appReducer = (state, action) => {
           rol: null,
         },
         token: null,
+        cartItems: [], // Reiniciar el carrito
+        favorites: [], // Reiniciar favoritos
+        isFavorite: false,
       };
     case "ADD_TO_CART":
       return {
         ...state,
         cartItems: action.payload.cartItems,
+      };
+
+    case "SET_FAVORITES":
+      return {
+        ...state,
+        favorites: action.payload.favorites,
       };
 
     case "ADD_TO_FAVORITES":
@@ -51,18 +72,23 @@ const appReducer = (state, action) => {
       };
 
     case "REMOVE_FROM_CART":
-      return removeItemFromState(state, "cartItems", action.payload.cartItems);
+      return {
+        ...state,
+        cartItems: action.payload.cartItems,
+      };
 
     case "REMOVE_FROM_FAVORITES":
-      return removeItemFromState(state, "favorites", action.payload.favorites);
-
+      return {
+        ...state,
+        favorites: action.payload.favorites,
+        isFavorite: false,
+      };
     default:
       return state;
   }
 };
 
-// Función auxiliar para eliminar un ítem del estado
-const removeItemFromState = (state, itemKey, updatedItems) => {
+/* const removeItemFromState = (state, itemKey, updatedItems) => {
   const isFavoriteUpdated =
     itemKey === "favorites" ? updatedItems.length > 0 : state.isFavorite;
 
@@ -71,29 +97,42 @@ const removeItemFromState = (state, itemKey, updatedItems) => {
     [itemKey]: updatedItems,
     isFavorite: isFavoriteUpdated,
   };
-};
+}; */
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
-  // Función para iniciar sesión y guardar en sessionStorage
-  const login = (user, token) => {
-    // Limpiar el carrito al iniciar sesión
-    sessionStorage.removeItem("cartItems");
+  useEffect(() => {
+    loadUserData();
+  }, [state.user.email]);
 
-    sessionStorage.setItem("user", JSON.stringify(user));
-    sessionStorage.setItem("token", token);
-    dispatch({ type: "LOGIN", payload: { user, token } });
+  const loadUserData = () => {
+    if (state.user.email) {
+      const cartItems =
+        JSON.parse(localStorage.getItem(`cartItems_${state.user.email}`)) ?? [];
+      dispatch({ type: "SET_CART_ITEMS", payload: { cartItems } });
 
-    // Opcional: Limpiar el estado del carrito
-    dispatch({ type: "ADD_TO_CART", payload: { cartItems: [] } });
+      const favorites =
+        JSON.parse(localStorage.getItem(`favorites_${state.user.email}`)) ?? [];
+      dispatch({ type: "SET_FAVORITES", payload: { favorites } });
+    }
   };
 
-  // Función para cerrar sesión, eliminar de sessionStorage y limpiar el carrito
+  const login = (user, token) => {
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("token", token);
+
+    const cartItems =
+      JSON.parse(localStorage.getItem(`cartItems_${user.email}`)) ?? [];
+
+    dispatch({ type: "LOGIN", payload: { user, token } });
+    dispatch({ type: "SET_CART_ITEMS", payload: { cartItems } });
+  };
+
   const logout = () => {
-    sessionStorage.removeItem("user");
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("cartItems");
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    /* sessionStorage.removeItem("cartItems"); */
     dispatch({ type: "LOGOUT" });
   };
 
@@ -116,8 +155,15 @@ export const AppProvider = ({ children }) => {
       updatedCartItems = [...state.cartItems, { ...product, quantity: 1 }];
     }
 
-    // Actualizar el carrito en el estado y sessionStorage
-    sessionStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    // Guardamos en localStorage usando la clave del usuario
+    if (state.user.email) {
+      localStorage.setItem(
+        `cartItems_${state.user.email}`,
+        JSON.stringify(updatedCartItems)
+      );
+    }
+
+    // Actualizamos el estado
     dispatch({
       type: "ADD_TO_CART",
       payload: { cartItems: updatedCartItems },
@@ -127,11 +173,18 @@ export const AppProvider = ({ children }) => {
   // Función para eliminar productos del carrito
   const removeFromCart = (id, size) => {
     const updatedCartItems = state.cartItems.filter(
-      (item) => item.id !== id || item.size !== size
+      (item) => !(item.id === id && item.size === size)
     );
 
-    // Actualizar el carrito en el estado y sessionStorage
-    sessionStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    // Actualizamos en localStorage
+    if (state.user.email) {
+      localStorage.setItem(
+        `cartItems_${state.user.email}`,
+        JSON.stringify(updatedCartItems)
+      );
+    }
+
+    // Actualizamos el estado
     dispatch({
       type: "REMOVE_FROM_CART",
       payload: { cartItems: updatedCartItems },
@@ -152,8 +205,14 @@ export const AppProvider = ({ children }) => {
       updatedFavorites = [...state.favorites, { ...product, quantity: 1 }];
     }
 
-    // Actualizar los favoritos en el estado y sessionStorage
-    sessionStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    // Guardar los favoritos en localStorage usando la clave del usuario
+    if (state.user.email) {
+      localStorage.setItem(
+        `favorites_${state.user.email}`,
+        JSON.stringify(updatedFavorites)
+      );
+    }
+
     dispatch({
       type: "ADD_TO_FAVORITES",
       payload: { favorites: updatedFavorites },
@@ -162,11 +221,17 @@ export const AppProvider = ({ children }) => {
 
   const removeFromFavorites = (id, size) => {
     const updatedFavorites = state.favorites.filter(
-      (item) => item.id !== id || item.size !== size
+      (item) => !(item.id === id && item.size === size)
     );
 
-    // Actualizar los favoritos en el estado y sessionStorage
-    sessionStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    // Guardar los favoritos actualizados en localStorage usando la clave del usuario
+    if (state.user.email) {
+      localStorage.setItem(
+        `favorites_${state.user.email}`,
+        JSON.stringify(updatedFavorites)
+      );
+    }
+
     dispatch({
       type: "REMOVE_FROM_FAVORITES",
       payload: { favorites: updatedFavorites },

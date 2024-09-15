@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { formatPriceCLP } from "../utils/format-price/formatPrice";
 import { AppContext } from "../context/AppContext";
 import { Link } from "react-router-dom";
+import { MdRemoveShoppingCart } from "react-icons/md";
 
 const Cart = () => {
   const { cartItems, removeFromCart } = useContext(AppContext);
@@ -24,9 +25,9 @@ const Cart = () => {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
-            {cartItems.map((item, index) => (
+            {cartItems.map((item) => (
               <div
-                key={index}
+                key={item.id}
                 className="flex items-center justify-between bg-white p-4 mb-4 rounded-lg shadow-sm border-2 border-stone-100"
               >
                 <Link to={`/product/${formatNameForUrl(item.name)}`}>
@@ -44,16 +45,20 @@ const Cart = () => {
                     {item.name}
                   </Link>
                   <p className="text-gray-600">
-                    Precio: {formatPriceCLP(item.price)}
+                    <strong>Precio:</strong> {formatPriceCLP(item.price)}
                   </p>
-                  <p className="text-gray-600">Cantidad: {item.quantity}</p>
-                  <p className="text-gray-600">Tamaño: {item.size}</p>
+                  <p className="text-gray-600">
+                    <strong>Cantidad:</strong> {item.quantity}
+                  </p>
+                  <p className="text-gray-600">
+                    <strong>Talla:</strong> {item.size}
+                  </p>
                 </div>
                 <button
                   onClick={() => removeFromCart(item.id, item.size)} // Eliminamos basado en id y size
-                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-400"
+                  className="border-2 border-rose-600 text-rose-600 px-4 py-2 rounded-md hover:bg-red-600 hover:text-white flex items-center justify-center"
                 >
-                  Eliminar
+                  <MdRemoveShoppingCart className="h-5 w-5" />
                 </button>
               </div>
             ))}
@@ -68,7 +73,7 @@ const Cart = () => {
                 {formatPriceCLP(calculateTotal())}
               </span>
             </p>
-            <button className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-stone-500">
+            <button className="w-full bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-600">
               Proceder al Pago
             </button>
           </div>
