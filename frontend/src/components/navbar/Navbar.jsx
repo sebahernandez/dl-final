@@ -98,7 +98,7 @@ export const Navbar = () => {
           {/* Secondary Navigation */}
           <div className="hidden md:flex items-center space-x-3 relative">
             <NavLink to="/register">
-              {user?.name ? user.name : "Crea tu cuenta"}
+              {user?.name ? "" : "Crea tu cuenta"}
             </NavLink>
             <div className="relative">
               {user?.email ? (
