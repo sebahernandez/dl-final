@@ -22,10 +22,10 @@ export function Filters({
   };
 
   return (
-    <section className="flex flex-col sm:flex-row gap-5 items-center justify-left px-10 bg-gray-100 py-5 rounded-sm shadow-sm">
-      <div className="flex flex-col items-center sm:items-start mt-5">
+    <section className="grid grid-cols-1 md:grid-cols-4 gap-5 bg-slate-50 rounded p-3">
+      <div className="w-full flex flex-col px-3">
         <label htmlFor="price" className="text-lg font-semibold mb-3">
-          Precio
+          Precio:
         </label>
         <input
           type="range"
@@ -34,21 +34,21 @@ export function Filters({
           min="0"
           max="160000"
           onChange={handlerPriceRange}
-          className="w-full sm:w-64 h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-stone-600"
+          className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-stone-600"
         />
         <span className="py-3 font-bold">{formatPriceCLP(priceRange)}</span>
       </div>
 
-      <div className="flex flex-col items-center sm:items-start">
+      <div className="w-full flex flex-col px-3">
         <label htmlFor="category" className="text-lg font-semibold mb-2">
-          Categoría
+          Categoría:
         </label>
         <select
           name="category"
           id="category"
           value={category}
           onChange={handlerCategory}
-          className="w-full sm:w-64 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         >
           <option value="all">Todas</option>
           <option value="Running">Running</option>
@@ -58,22 +58,33 @@ export function Filters({
         </select>
       </div>
 
-      <div className="flex flex-col items-center sm:items-start">
+      <div className="w-full flex flex-col px-3">
         <label htmlFor="gender" className="text-lg font-semibold mb-2">
-          Género
+          Género:
         </label>
         <select
           name="gender"
           id="gender"
           value={gender}
           onChange={handlerGender}
-          className="w-full sm:w-64 px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         >
           <option value="all">Todas</option>
           <option value="hombre">Hombre</option>
           <option value="mujer">Mujer</option>
           <option value="niños">Niños</option>
         </select>
+      </div>
+
+      <div className="flex flex-col px-3">
+        <label htmlFor="search" className="text-lg font-semibold mb-2">
+          Buscar:
+        </label>
+        <input
+          type="text"
+          placeholder="Buscar producto..."
+          className="px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
+        />
       </div>
     </section>
   );
