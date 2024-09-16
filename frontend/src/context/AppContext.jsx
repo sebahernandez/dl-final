@@ -52,12 +52,12 @@ const appReducer = (state, action) => {
         favorites: [], // Reiniciar favoritos
         isFavorite: false,
       };
-    case "ADD_TO_CART":
+    /*     case "ADD_TO_CART":
       return {
         ...state,
         cartItems: action.payload.cartItems,
       };
-
+ */
     case "SET_FAVORITES":
       return {
         ...state,
@@ -71,11 +71,11 @@ const appReducer = (state, action) => {
         isFavorite: true,
       };
 
-    case "REMOVE_FROM_CART":
+    /*  case "REMOVE_FROM_CART":
       return {
         ...state,
         cartItems: action.payload.cartItems,
-      };
+      }; */
 
     case "REMOVE_FROM_FAVORITES":
       return {
@@ -87,17 +87,6 @@ const appReducer = (state, action) => {
       return state;
   }
 };
-
-/* const removeItemFromState = (state, itemKey, updatedItems) => {
-  const isFavoriteUpdated =
-    itemKey === "favorites" ? updatedItems.length > 0 : state.isFavorite;
-
-  return {
-    ...state,
-    [itemKey]: updatedItems,
-    isFavorite: isFavoriteUpdated,
-  };
-}; */
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
@@ -132,7 +121,6 @@ export const AppProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    /* sessionStorage.removeItem("cartItems"); */
     dispatch({ type: "LOGOUT" });
   };
 
@@ -165,7 +153,7 @@ export const AppProvider = ({ children }) => {
 
     // Actualizamos el estado
     dispatch({
-      type: "ADD_TO_CART",
+      type: "SET_CART_ITEMS",
       payload: { cartItems: updatedCartItems },
     });
   };
@@ -186,7 +174,7 @@ export const AppProvider = ({ children }) => {
 
     // Actualizamos el estado
     dispatch({
-      type: "REMOVE_FROM_CART",
+      type: "SET_CART_ITEMS",
       payload: { cartItems: updatedCartItems },
     });
   };

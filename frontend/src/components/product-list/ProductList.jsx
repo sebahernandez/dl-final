@@ -9,6 +9,7 @@ export const ProductsList = () => {
   const [priceRange, setPriceRange] = useState(0);
   const [category, setCategory] = useState("all");
   const [gender, setGender] = useState("all");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (products.length > 0) return;
@@ -23,6 +24,7 @@ export const ProductsList = () => {
     minPrice: priceRange,
     category: category,
     gender: gender,
+    search,
   };
 
   const filterProducts = FilteredProducts(products, filters);
@@ -37,6 +39,8 @@ export const ProductsList = () => {
           setCategory={setCategory}
           gender={gender}
           setGender={setGender}
+          search={search}
+          setSearch={setSearch}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-0 py-5">

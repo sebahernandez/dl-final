@@ -8,6 +8,8 @@ export function Filters({
   setCategory,
   gender,
   setGender,
+  search,
+  setSearch,
 }) {
   const handlerPriceRange = (e) => {
     setPriceRange(Number(e.target.value));
@@ -19,6 +21,10 @@ export function Filters({
 
   const handlerGender = (e) => {
     setGender(e.target.value);
+  };
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
   };
 
   return (
@@ -84,6 +90,8 @@ export function Filters({
           type="text"
           placeholder="Buscar producto..."
           className="px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
+          value={search}
+          onChange={handleSearch}
         />
       </div>
     </section>
