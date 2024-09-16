@@ -1,11 +1,16 @@
 export function FilteredProducts(products, filters) {
   const filtered = products.filter((product) => {
-    return (
-      (filters.category === "all" || product.category === filters.category) &&
-      (filters.gender === "all" || product.gender === filters.gender) &&
-      product.price >= filters.minPrice
-    );
+    const matchesCategory =
+      filters.category === "all" || product.category === filters.category;
+    const matchesGender =
+      filters.gender === "all" || product.gender === filters.gender;
+    const matchesPrice = product.price >= filters.minPrice;
+    const matchesSearch =
+      filters.search.length === 0 ||
+      product.name.toLowerCase().includes(filters.search.toLowerCase());
+
+    return matchesCategory && matchesGender && matchesPrice && matchesSearch;
   });
-  // Verifica los productos después de aplicar los filtros
+
   return filtered;
 }

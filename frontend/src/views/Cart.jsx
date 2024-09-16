@@ -15,7 +15,7 @@ const Cart = () => {
   };
 
   return (
-    <section className="container mx-auto p-4 h-[100vh] py-10">
+    <section className="container mx-auto p-4 h-auto py-10">
       <h2 className="text-4xl text-center font-bold mb-6 py-5">
         Tu Carrito de Compras
       </h2>

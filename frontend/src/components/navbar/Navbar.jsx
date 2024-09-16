@@ -71,7 +71,7 @@ export const Navbar = () => {
                   : "py-5 px-3 text-gray-700 hover:text-gray-900 font-bold"
               }
             >
-              Shop
+              Tienda
             </NavLink>
             <NavLink
               to="/about"
@@ -185,7 +185,7 @@ export const Navbar = () => {
               : "block py-2 px-4 text-sm hover:bg-gray-200"
           }
         >
-          Home
+          Inicio
         </NavLink>
         <NavLink
           to="/shop"
@@ -195,7 +195,7 @@ export const Navbar = () => {
               : "block py-2 px-4 text-sm hover:bg-gray-200"
           }
         >
-          Shop
+          Tienda
         </NavLink>
         <NavLink
           to="/about"
@@ -205,7 +205,7 @@ export const Navbar = () => {
               : "block py-2 px-4 text-sm hover:bg-gray-200"
           }
         >
-          About
+          Nosotros
         </NavLink>
         <NavLink
           to="/contact"
@@ -215,7 +215,7 @@ export const Navbar = () => {
               : "block py-2 px-4 text-sm hover:bg-gray-200"
           }
         >
-          Contact
+          Contacto
         </NavLink>
         <NavLink
           to="/login"
