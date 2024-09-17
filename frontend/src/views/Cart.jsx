@@ -55,7 +55,7 @@ const Cart = () => {
                   </p>
                 </div>
                 <button
-                  onClick={() => removeFromCart(item.id, item.size)} // Eliminamos basado en id y size
+                  onClick={() => removeFromCart(item.id, item.size)}
                   className="border-2 border-rose-600 text-rose-600 px-4 py-2 rounded-md hover:bg-red-600 hover:text-white flex items-center justify-center"
                 >
                   <MdRemoveShoppingCart className="h-5 w-5" />
