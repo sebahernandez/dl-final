@@ -14,6 +14,6 @@ export const validateUser = (req, res) => {
       })
     )
     .catch((error) =>
-      res.status(404).json({ status: false, code: 404, message: error })
+      res.status(404).json({ status: false, code: 404, message: error.message })
     );
 };

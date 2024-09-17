@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { login } = useContext(AppContext); // Usamos `login` desde el contexto
@@ -27,10 +28,17 @@ const Login = () => {
         login(user, token);
         navigate("/");
       } else {
-        console.error("Error en la autenticación:", data.message);
+        const errorMessage =
+          data?.message ||
+          "Error en la autenticación. No se recibió un mensaje del servidor.";
+
+        throw new Error(errorMessage);
       }
     } catch (error) {
-      console.error("Error en la llamada a la API:", error);
+      console.error("Error en la autenticación:", error.message);
+      toast.error(error.message, {
+        position: "bottom-right",
+      });
     }
   };
 

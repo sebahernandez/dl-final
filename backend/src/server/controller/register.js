@@ -2,7 +2,7 @@ import * as psql from "../models/register.js";
 import { jwtSign } from "../../utils/jwt.js";
 
 export const setUser = async (req, res) => {
-  if (!req.body || !req.body.email || !req.body.password || !req.body.name) {
+  if (!req.body?.email || !req.body?.password || !req.body?.name) {
     return res.status(400).json({
       status: false,
       code: 400,
