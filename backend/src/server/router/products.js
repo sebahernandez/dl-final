@@ -1,10 +1,17 @@
 import { Router } from "express";
-import { getProducts, setProduct } from "../controller/products.js";
+import {
+  getProducts,
+  setProduct,
+  getProductById,
+  updateProduct,
+  deleteProduct,
+} from "../controller/products.js";
 
 const products = Router();
 
-// Primero ejecuta authToken, y luego setProduct o getProducts si la autenticación es correcta
-products.post("/", setProduct);
-products.get("/", getProducts);
-
+products.post("/", setProduct); // Crear producto
+products.get("/", getProducts); // Obtener todos los productos
+products.get("/:productid", getProductById); // Obtener producto por productid
+products.put("/:productid", updateProduct); // Actualizar producto por productid
+products.delete("/:productid", deleteProduct); // Eliminar producto por productid
 export default products;

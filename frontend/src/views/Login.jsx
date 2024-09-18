@@ -26,7 +26,7 @@ const Login = () => {
       if (response.ok) {
         const { user, token } = data;
         login(user, token);
-        navigate("/");
+        user.rol === "administrador" ? navigate("/admin") : navigate("/");
       } else {
         const errorMessage =
           data?.message ||

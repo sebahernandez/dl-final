@@ -1,6 +1,12 @@
 import express from "express";
 import cors from "cors";
-import { login, error, register, products } from "./router/index.js";
+import {
+  login,
+  error,
+  register,
+  products,
+  categories,
+} from "./router/index.js";
 
 export const app = express();
 const port = process.env.PORT || 3000;
@@ -11,6 +17,7 @@ app.use(express.json());
 app.disable("x-powered-by");
 
 app.use("/products", products);
+app.use("/categories", categories);
 app.use("/register", register);
 app.use("/login", login);
 app.use("*", error);
