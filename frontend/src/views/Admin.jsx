@@ -1,8 +1,10 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 import { Logout } from "../components/logout/Logout";
+import { toast } from "react-toastify";
 
 const Admin = () => {
+  // Obtener el usuario actual del contexto
   const { user } = useContext(AppContext);
 
   // Estado para manejar los datos del nuevo producto
@@ -19,12 +21,6 @@ const Admin = () => {
   const [products, setProducts] = useState([]);
   const [editProductId, setEditProductId] = useState(0);
 
-  console.log("Product Sizes:", productSizes);
-  console.log("Selected Category:", selectedCategory);
-
-  // Referencia al formulario para usar reset()
-  const formRef = useRef(null);
-
   // Cargar productos al montar el componente
   useEffect(() => {
     fetchProducts();
@@ -34,6 +30,20 @@ const Admin = () => {
   useEffect(() => {
     fetchCategories();
   }, []);
+
+  // Función para resetear los campos del formulario
+  const resetFormFields = () => {
+    setProductName("");
+    setProductDescription("");
+    setProductPrice(0);
+    setProductImage("");
+    setProductSizes([]);
+    setProductStock(0);
+    setProductMarca("");
+    setProductGender("");
+    setSelectedCategory(0);
+    setEditProductId(0); // Salir del modo edición
+  };
 
   // Obtener todos los productos de la base de datos
   const fetchProducts = async () => {
@@ -91,9 +101,11 @@ const Admin = () => {
 
       if (response.ok) {
         fetchProducts(); // Actualiza la lista de productos
-        formRef.current.reset(); // Restablece los campos del formulario
+        resetFormFields(); // Resetea los campos del formulario
+        toast.success("Producto añadido con éxito"); // Añadir un mensaje de éxito
       } else {
         console.error("Error al añadir producto");
+        toast.error("Error al añadir producto"); // Añadir un mensaje de error
       }
     } catch (error) {
       console.error("Error:", error);
@@ -125,10 +137,12 @@ const Admin = () => {
 
       if (response.ok) {
         fetchProducts(); // Actualiza la lista de productos
-        formRef.current.reset(); // Restablece los campos del formulario
+        resetFormFields(); // Resetea los campos del formulario
         setEditProductId(null); // Salir del modo edición
+        toast.success("Producto actualizado con exito");
       } else {
         console.error("Error al editar producto");
+        toast.error("Error al editar producto");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -148,6 +162,7 @@ const Admin = () => {
       if (response.ok) {
         fetchProducts(); // Actualiza la lista de productos
         console.log("Producto eliminado con éxito");
+        toast.success("Producto eliminado con exito");
       } else {
         console.error("Error al eliminar producto");
       }
@@ -179,13 +194,12 @@ const Admin = () => {
     <section className="container mx-auto flex flex-row justify-between items-start h-auto p-4">
       {/* Panel de administración */}
       <div className="w-1/2 p-4">
-        <h2 className="text-2xl">Welcome, {user.email}!</h2>
-        <Logout />
-
         {/* Lista de productos */}
-        <h3 className="text-xl mb-4 mt-5">Lista de productos</h3>
-        <ul>
-          {products.map((product, index) => (
+        <h3 className="text-xl mb-4 mt-5 bg-slate-100 p-5 rounded-md">
+          Catálogo de productos
+        </h3>
+        <ul style={{ height: "700px", overflowY: "auto" }}>
+          {products.map((product) => (
             <li key={product.productid} className="mb-4 border-b pb-4">
               <div className="flex items-start">
                 <div className="w-1/4">
@@ -249,12 +263,15 @@ const Admin = () => {
       </div>
 
       {/* Formulario de productos */}
-      <div className="w-1/2 p-4 bg-gray-100 rounded shadow">
+      <div className="w-1/2 p-4 bg-gray-100 rounded shadow my-10">
+        <div className="py-5">
+          <h2 className="text-2xl">Bienvenido, {user.email}!</h2>
+          <Logout />
+        </div>
         <h3 className="text-xl mb-4">
           {editProductId ? "Editar producto" : "Añadir nuevo producto"}
         </h3>
         <form
-          ref={formRef}
           onSubmit={
             editProductId
               ? (e) => handleEditProduct(editProductId)
