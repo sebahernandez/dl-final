@@ -25,7 +25,7 @@ const ProductDetails = () => {
       return name.replace(/-/g, " ");
     };
 
-    fetch("/data/products.json")
+    fetch("http://localhost:3000/products")
       .then((response) => response.json())
       .then((data) => {
         const formattedName = formatNameFromUrl(name);

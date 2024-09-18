@@ -14,7 +14,7 @@ export const ProductsList = () => {
   useEffect(() => {
     if (products.length > 0) return;
 
-    fetch("/data/products.json")
+    fetch("http://localhost:3000/products")
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error fetching products:", error));
