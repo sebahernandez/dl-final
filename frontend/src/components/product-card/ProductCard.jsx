@@ -8,7 +8,7 @@ export const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="border rounded-lg shadow-sms p-4">
+    <div className="border rounded-lg shadow-sm p-4 bg-white">
       <Link to={`/product/${formatNameForUrl(product.name)}`}>
         <img
           src={product.image}
@@ -19,24 +19,23 @@ export const ProductCard = ({ product }) => {
       <Link
         to={`/product/${formatNameForUrl(product.name)}`}
         href="#"
-        className="text-xl font-bold mt-4 underline"
+        className="text-md  mt-4 underline"
       >
         {product.name}
       </Link>
       <p className="text-lg  text-gray-700 mt-4">
         {formatPriceCLP(product.price)}
       </p>
-      <p className="text-sm text-gray-600"> {product.marca}</p>
+      <p className="text-sm text-gray-600"> {product.brand}</p>
     </div>
   );
 };
 
 ProductCard.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    marca: PropTypes.string.isRequired,
+    brand: PropTypes.string.isRequired,
   }).isRequired,
 };

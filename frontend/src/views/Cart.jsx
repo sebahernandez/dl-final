@@ -27,7 +27,7 @@ const Cart = () => {
           <div>
             {cartItems.map((item) => (
               <div
-                key={item.id}
+                key={item.productid}
                 className="flex items-center justify-between bg-white p-4 mb-4 rounded-lg shadow-sm border-2 border-stone-100"
               >
                 <Link to={`/product/${formatNameForUrl(item.name)}`}>

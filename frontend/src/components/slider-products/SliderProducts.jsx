@@ -11,7 +11,7 @@ export const SliderProducts = () => {
   useEffect(() => {
     if (products.length > 0) return;
 
-    fetch("/data/products.json")
+    fetch("http://localhost:3000/products")
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error fetching products:", error));
@@ -26,7 +26,7 @@ export const SliderProducts = () => {
       <Splide
         options={{
           rewind: true,
-          gap: "1rem",
+          gap: "2rem",
           perPage: 4, // Mostrará 4 tarjetas en vista de escritorio
           pagination: false,
           autoplay: true,
@@ -44,25 +44,26 @@ export const SliderProducts = () => {
         aria-label="popular products"
       >
         {products.map((product) => (
-          <SplideSlide key={product.id}>
-            <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white">
-              <img
-                className="w-full h-48 object-cover"
-                src={product.image}
-                alt={product.name}
-              />
-              <div className="px-6 py-4">
-                <Link
-                  to={`/product/${formatNameForUrl(product.name)}`}
-                  className="text-xl font-bold mt-4 underline"
-                >
-                  {product.name}
-                </Link>
-                <p className="text-gray-700 text-base">{product.description}</p>
-                <p className="text-lg font-semibold text-black py-2">
-                  {formatPriceCLP(product.price)}
-                </p>
-              </div>
+          <SplideSlide key={product.productid}>
+            <div className="border rounded-lg shadow-sm p-4 bg-white h-80">
+              <Link to={`/product/${formatNameForUrl(product.name)}`}>
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-48 object-cover"
+                />
+              </Link>
+              <Link
+                to={`/product/${formatNameForUrl(product.name)}`}
+                href="#"
+                className="text-md  mt-4 underline"
+              >
+                {product.name}
+              </Link>
+              <p className="text-sm  text-gray-700 mt-4">
+                {formatPriceCLP(product.price)}
+              </p>
+              <p className="text-sm text-gray-600"> {product.brand}</p>
             </div>
           </SplideSlide>
         ))}

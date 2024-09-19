@@ -14,7 +14,7 @@ export const ProductsList = () => {
   useEffect(() => {
     if (products.length > 0) return;
 
-    fetch("/data/products.json")
+    fetch("http://localhost:3000/products")
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error fetching products:", error));
@@ -46,7 +46,7 @@ export const ProductsList = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-0 py-5">
         {filterProducts.length > 0 ? (
           filterProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.productid} product={product} />
           ))
         ) : (
           <p className="text-2xl font-bold text-center w-full col-start-2 col-span-2 text-red-600 py-10">
