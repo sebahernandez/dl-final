@@ -17,9 +17,6 @@ const ProductDetails = () => {
     (fav) => fav.id === product?.id && fav.size === selectedSize
   );
 
-  console.log("Favorites:", favorites); // Verifica los productos en favoritos
-  console.log("isFavorite:", isFavorite); // Verifica si isFavorite cambia
-
   useEffect(() => {
     const formatNameFromUrl = (name) => {
       return name.replace(/-/g, " ");
@@ -76,7 +73,7 @@ const ProductDetails = () => {
   };
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <div className="container mx-auto py-10">Loading...</div>;
   }
 
   return (

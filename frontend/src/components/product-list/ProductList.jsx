@@ -46,7 +46,7 @@ export const ProductsList = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-0 py-5">
         {filterProducts.length > 0 ? (
           filterProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.productid} product={product} />
           ))
         ) : (
           <p className="text-2xl font-bold text-center w-full col-start-2 col-span-2 text-red-600 py-10">

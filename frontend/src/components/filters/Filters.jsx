@@ -57,10 +57,14 @@ export function Filters({
           className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         >
           <option value="all">Todas</option>
+          <option value="Invierno">Invierno</option>
+          <option value="Plataforma">Plataforma</option>
+          <option value="Anchas">Anchas</option>
           <option value="Running">Running</option>
-          <option value="Urbanas">Urbanas</option>
           <option value="Skate">Skate</option>
-          <option value="Outdoors">Outdoors</option>
+          <option value="Urbanas">Urbanas</option>
+          <option value="Deportivas">Deportivas</option>
+          <option value="Outdoor">Outdoors</option>
         </select>
       </div>
 
@@ -78,7 +82,8 @@ export function Filters({
           <option value="all">Todas</option>
           <option value="hombre">Hombre</option>
           <option value="mujer">Mujer</option>
-          <option value="niños">Niños</option>
+          <option value="nino">Niño</option>
+          <option value="unisex">Unisex</option>
         </select>
       </div>
 
