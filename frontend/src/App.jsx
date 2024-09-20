@@ -1,6 +1,18 @@
 import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
-import {
+import Home from "./views/Home";
+import Shop from "./views/Shop";
+import About from "./views/About";
+import Contact from "./views/Contact";
+import Login from "./views/Login";
+import Register from "./views/Register";
+import NotFound from "./views/NotFound";
+import Admin from "./views/Admin";
+import ProductDetails from "./views/ProductDetails";
+import Cart from "./views/Cart";
+import Favorites from "./views/Favorites";
+
+/* import {
   Home,
   Shop,
   About,
@@ -12,7 +24,7 @@ import {
   ProductDetails,
   Cart,
   Favorites,
-} from "./views";
+} from "./views"; */
 import { RootLayout } from "./layouts/RootLayout";
 import { ProtectedRoute } from "./components/protected-route/ProtectedRoute";
 import { AppProvider, AppContext } from "./context/AppContext";
