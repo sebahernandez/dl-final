@@ -10,11 +10,13 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/register", {
+      const response = await fetch(`${baseUrl}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

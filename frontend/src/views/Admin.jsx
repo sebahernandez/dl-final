@@ -45,10 +45,16 @@ const Admin = () => {
     setEditProductId(0); // Salir del modo edición
   };
 
+  const urlProducts = import.meta.env.VITE_BASE_URL + "/products";
+  const urlCategories = import.meta.env.VITE_BASE_URL + "/categories";
+
   // Obtener todos los productos de la base de datos
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/products"); // Ajusta esta ruta según tu servidor
+      const response = await fetch(urlProducts);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
       const data = await response.json();
       setProducts(data);
     } catch (error) {
@@ -59,7 +65,7 @@ const Admin = () => {
   // Obtener todas las categorías de la base de datos
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:3000/categories"); // Ajusta esta ruta según tu servidor
+      const response = await fetch(urlCategories); // Ajusta esta ruta según tu servidor
       const data = await response.json();
       if (Array.isArray(data)) {
         setCategories(data);
@@ -91,7 +97,7 @@ const Admin = () => {
     };
     console.log("Objeto actualizado:", newProduct);
     try {
-      const response = await fetch("http://localhost:3000/products", {
+      const response = await fetch(urlProducts, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -127,7 +133,7 @@ const Admin = () => {
     };
     console.log("Objeto actualizado:", updatedProduct);
     try {
-      const response = await fetch(`http://localhost:3000/products/${id}`, {
+      const response = await fetch(`${urlProducts}/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -152,12 +158,9 @@ const Admin = () => {
   // Eliminar un producto
   const handleDeleteProduct = async (productid) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/products/${productid}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${urlProducts}/${productid}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
         fetchProducts(); // Actualiza la lista de productos

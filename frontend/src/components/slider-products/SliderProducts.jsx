@@ -11,7 +11,9 @@ export const SliderProducts = () => {
   useEffect(() => {
     if (products.length > 0) return;
 
-    fetch("http://localhost:3000/products")
+    const urlProducts = import.meta.env.VITE_BASE_URL + "/products";
+
+    fetch(urlProducts)
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error("Error fetching products:", error));

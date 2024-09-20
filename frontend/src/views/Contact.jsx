@@ -18,12 +18,14 @@ const Contact = () => {
     }));
   };
 
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/contact/send-email", {
+      const response = await fetch(`${baseUrl}/contact/send-email`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
