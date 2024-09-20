@@ -17,12 +17,14 @@ const ProductDetails = () => {
     (fav) => fav.id === product?.id && fav.size === selectedSize
   );
 
+  const urlProducts = import.meta.env.VITE_BASE_URL + "/products";
+
   useEffect(() => {
     const formatNameFromUrl = (name) => {
       return name.replace(/-/g, " ");
     };
 
-    fetch("http://localhost:3000/products")
+    fetch(urlProducts)
       .then((response) => response.json())
       .then((data) => {
         const formattedName = formatNameFromUrl(name);

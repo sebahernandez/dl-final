@@ -28,6 +28,7 @@ const Admin = () => {
 
   // Cargar categorías al montar el componente
   useEffect(() => {
+    console.log("useEffect ejecutándose para cargar las categorías...");
     fetchCategories();
   }, []);
 
@@ -45,31 +46,59 @@ const Admin = () => {
     setEditProductId(0); // Salir del modo edición
   };
 
+  const urlProducts = import.meta.env.VITE_BASE_URL + "/products";
+  const urlCategories = import.meta.env.VITE_BASE_URL + "/categories";
+
+  console.log("URL de categorías:", urlCategories);
+
   // Obtener todos los productos de la base de datos
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/products"); // Ajusta esta ruta según tu servidor
+      const response = await fetch(urlProducts);
+
+      if (!response.ok) {
+        throw new Error(
+          `Error en la red: ${response.status} ${response.statusText}`
+        );
+      }
+
       const data = await response.json();
-      setProducts(data);
+      if (Array.isArray(data) && data.length === 0) {
+        console.log("No hay productos disponibles.");
+      }
+      setProducts(data); // Si no hay productos, simplemente establecerá un array vacío
     } catch (error) {
       console.error("Error al obtener los productos:", error);
+      setProducts([]); // En caso de error, asegurarse de que products esté vacío
     }
   };
 
   // Obtener todas las categorías de la base de datos
   const fetchCategories = async () => {
     try {
-      const response = await fetch("http://localhost:3000/categories"); // Ajusta esta ruta según tu servidor
+      console.log("Intentando obtener las categorías...");
+
+      const response = await fetch(urlCategories);
+      console.log("Response status:", response.status); // Verifica el código de estado de la respuesta
+
+      if (!response.ok) {
+        throw new Error(
+          `Error en la red: ${response.status} ${response.statusText}`
+        );
+      }
+
       const data = await response.json();
+      console.log("Datos de categorías obtenidos:", data); // Muestra los datos obtenidos
+
       if (Array.isArray(data)) {
-        setCategories(data);
+        setCategories(data); // Actualiza el estado con las categorías
       } else {
-        console.error("La respuesta no es un arreglo:", data);
-        setCategories([]);
+        console.error("La respuesta no es un arreglo de categorías", data);
+        setCategories([]); // Establece un array vacío si la respuesta no es un array válido
       }
     } catch (error) {
       console.error("Error al obtener las categorías:", error);
-      setCategories([]);
+      setCategories([]); // En caso de error, establece el estado como un array vacío
     }
   };
 
@@ -91,7 +120,7 @@ const Admin = () => {
     };
     console.log("Objeto actualizado:", newProduct);
     try {
-      const response = await fetch("http://localhost:3000/products", {
+      const response = await fetch(urlProducts, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -127,7 +156,7 @@ const Admin = () => {
     };
     console.log("Objeto actualizado:", updatedProduct);
     try {
-      const response = await fetch(`http://localhost:3000/products/${id}`, {
+      const response = await fetch(`${urlProducts}/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -152,12 +181,9 @@ const Admin = () => {
   // Eliminar un producto
   const handleDeleteProduct = async (productid) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/products/${productid}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`${urlProducts}/${productid}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
         fetchProducts(); // Actualiza la lista de productos
@@ -199,66 +225,70 @@ const Admin = () => {
           Catálogo de productos
         </h3>
         <ul style={{ height: "700px", overflowY: "auto" }}>
-          {products.map((product) => (
-            <li key={product.productid} className="mb-4 border-b pb-4">
-              <div className="flex items-start">
-                <div className="w-1/4">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-auto object-cover"
-                  />
-                </div>
-                <div className="w-3/4 pl-4">
-                  <p className="font-bold text-lg">{product.name}</p>
-                  <p>
-                    <strong className="text-slate-500">Descripción:</strong>
-                    {product.description}
-                  </p>
-                  <p>
-                    <strong className="text-slate-500">Marca:</strong>{" "}
-                    {product.brand}{" "}
-                  </p>
-                  <p>
-                    <strong className="text-slate-500">Precio:</strong> $
-                    {product.price}
-                  </p>
-                  <p>
-                    <strong className="text-slate-500">Stock:</strong>{" "}
-                    {product.stock}
-                  </p>
-                  <p>
-                    <strong className="text-slate-500">Tallas:</strong>{" "}
-                    {Array.isArray(product.sizes)
-                      ? product.sizes.join(", ")
-                      : "No disponible"}
-                  </p>
-                  <p>
-                    <strong className="text-slate-500">Categoría:</strong>{" "}
-                    {product.category}
-                  </p>
-                  <p>
-                    <strong className="text-slate-500">Genero:</strong>{" "}
-                    {product.gender}
-                  </p>
-                  <div className="mt-4">
-                    <button
-                      onClick={() => handleEditClick(product)}
-                      className="mr-2 bg-blue-500 text-white py-1 px-4 rounded hover:bg-blue-600"
-                    >
-                      Editar
-                    </button>
-                    <button
-                      onClick={() => handleDeleteProduct(product.productid)}
-                      className="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600"
-                    >
-                      Eliminar
-                    </button>
+          {products.length > 0 ? (
+            products.map((product) => (
+              <li key={product.productid} className="mb-4 border-b pb-4">
+                <div className="flex items-start">
+                  <div className="w-1/4">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                  <div className="w-3/4 pl-4">
+                    <p className="font-bold text-lg">{product.name}</p>
+                    <p>
+                      <strong className="text-slate-500">Descripción:</strong>{" "}
+                      {product.description}
+                    </p>
+                    <p>
+                      <strong className="text-slate-500">Marca:</strong>{" "}
+                      {product.brand}{" "}
+                    </p>
+                    <p>
+                      <strong className="text-slate-500">Precio:</strong> $
+                      {product.price}
+                    </p>
+                    <p>
+                      <strong className="text-slate-500">Stock:</strong>{" "}
+                      {product.stock}
+                    </p>
+                    <p>
+                      <strong className="text-slate-500">Tallas:</strong>{" "}
+                      {Array.isArray(product.sizes)
+                        ? product.sizes.join(", ")
+                        : "No disponible"}
+                    </p>
+                    <p>
+                      <strong className="text-slate-500">Categoría:</strong>{" "}
+                      {product.category}
+                    </p>
+                    <p>
+                      <strong className="text-slate-500">Género:</strong>{" "}
+                      {product.gender}
+                    </p>
+                    <div className="mt-4">
+                      <button
+                        onClick={() => handleEditClick(product)}
+                        className="mr-2 bg-blue-500 text-white py-1 px-4 rounded hover:bg-blue-600"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        onClick={() => handleDeleteProduct(product.productid)}
+                        className="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600"
+                      >
+                        Eliminar
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            ))
+          ) : (
+            <p>No hay productos disponibles.</p>
+          )}
         </ul>
       </div>
 
@@ -408,19 +438,23 @@ const Admin = () => {
             >
               Categoría
             </label>
-            <select
-              value={selectedCategory}
-              onChange={handleCategoryChange} // Convertir el valor seleccionado a número
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
-            >
-              <option value="">Seleccionar categoría</option>
-              {categories.map((category) => (
-                <option key={category.categoryid} value={category.categoryid}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+            {categories.length > 0 ? (
+              <select
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              >
+                <option value="">Seleccionar categoría</option>
+                {categories.map((category) => (
+                  <option key={category.categoryid} value={category.categoryid}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <p className="text-red-500">No hay categorías disponibles.</p>
+            )}
           </div>
 
           {/* Género */}

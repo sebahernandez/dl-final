@@ -6,6 +6,7 @@ import {
   register,
   products,
   categories,
+  contact,
 } from "./router/index.js";
 
 export const app = express();
@@ -15,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 app.disable("x-powered-by");
-
+app.use("/contact", contact);
 app.use("/products", products);
 app.use("/categories", categories);
 app.use("/register", register);
