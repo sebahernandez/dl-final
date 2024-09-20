@@ -46,8 +46,17 @@ const Admin = () => {
     setEditProductId(0); // Salir del modo edición
   };
 
-  const urlProducts = import.meta.env.VITE_BASE_URL + "/products";
-  const urlCategories = import.meta.env.VITE_BASE_URL + "/categories";
+  // Verifica si estás en modo desarrollo o producción
+  const isDevelopment = import.meta.env.MODE === "development";
+
+  // Define las URLs según el entorno
+  const urlProducts = isDevelopment
+    ? "http://localhost:3000/products" // URL para entorno de desarrollo
+    : import.meta.env.VITE_BASE_URL + "/products"; // URL para entorno de producción
+
+  const urlCategories = isDevelopment
+    ? "http://localhost:3000/categories" // URL para entorno de desarrollo
+    : import.meta.env.VITE_BASE_URL + "/categories"; // URL para entorno de producción
 
   console.log("URL de categorías:", urlCategories);
 

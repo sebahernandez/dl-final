@@ -11,11 +11,14 @@ export const ProductsList = () => {
   const [gender, setGender] = useState("all");
   const [search, setSearch] = useState("");
 
+  const isDevelopment = import.meta.env.MODE === "development";
+
+  const url = isDevelopment
+    ? "http://localhost:3000/products" // URL para entorno de desarrollo
+    : import.meta.env.VITE_BASE_URL + "/products"; // URL para entorno de producción
+
   useEffect(() => {
     if (products.length > 0) return;
-
-    const url = import.meta.env.VITE_BASE_URL + "/products";
-
     fetch(url)
       .then((response) => response.json())
       .then((data) => setProducts(data))

@@ -17,7 +17,13 @@ const ProductDetails = () => {
     (fav) => fav.id === product?.id && fav.size === selectedSize
   );
 
-  const urlProducts = import.meta.env.VITE_BASE_URL + "/products";
+  // Verifica si estás en modo desarrollo o producción
+  const isDevelopment = import.meta.env.MODE === "development";
+
+  // Define la URL de productos según el entorno
+  const urlProducts = isDevelopment
+    ? "http://localhost:3000/products" // URL para entorno de desarrollo
+    : import.meta.env.VITE_BASE_URL + "/products"; // URL para entorno de producción
 
   useEffect(() => {
     const formatNameFromUrl = (name) => {
