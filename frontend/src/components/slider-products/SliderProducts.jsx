@@ -8,11 +8,16 @@ import { formatPriceCLP } from "../../utils/format-price/formatPrice";
 export const SliderProducts = () => {
   const { storeProducts: products, setProducts } = useContext(AppContext);
 
+  // Verifica si estás en modo desarrollo o producción
+  const isDevelopment = import.meta.env.MODE === "development";
+
+  // Define la URL según el entorno
+  const urlProducts = isDevelopment
+    ? "http://localhost:3000/products" // URL para entorno de desarrollo
+    : import.meta.env.VITE_BASE_URL + "/products"; // URL para entorno de producción
+
   useEffect(() => {
     if (products.length > 0) return;
-
-    const urlProducts = import.meta.env.VITE_BASE_URL + "/products";
-
     fetch(urlProducts)
       .then((response) => response.json())
       .then((data) => setProducts(data))

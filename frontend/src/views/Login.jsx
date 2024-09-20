@@ -9,7 +9,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const baseUrl = import.meta.env.VITE_BASE_URL;
+  // Verifica si estás en modo desarrollo o producción
+  const isDevelopment = import.meta.env.MODE === "development";
+
+  // Define la baseUrl según el entorno
+  const baseUrl = isDevelopment
+    ? "http://localhost:3000" // URL para entorno de desarrollo
+    : import.meta.env.VITE_BASE_URL; // URL para entorno de producción
 
   const handleLogin = async (e) => {
     e.preventDefault();
