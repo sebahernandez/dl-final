@@ -12,7 +12,7 @@ import {
   ProductDetails,
   Cart,
   Favorites,
-} from "./views";
+} from "./views/index.jsx";
 import { RootLayout } from "./layouts/RootLayout";
 import { ProtectedRoute } from "./components/protected-route/ProtectedRoute";
 import { AppProvider, AppContext } from "./context/AppContext";
