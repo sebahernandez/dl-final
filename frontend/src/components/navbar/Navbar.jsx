@@ -114,6 +114,7 @@ export const Navbar = () => {
             {/* Ingreso de sesión (Solo en desktop) */}
             <div className="hidden md:flex items-center space-x-3 relative">
               {!user?.email && <NavLink to="/register">Crea tu cuenta</NavLink>}
+
               <div className="relative">
                 {user?.email ? (
                   <div className="relative" ref={dropdownRef}>
@@ -139,6 +140,12 @@ export const Navbar = () => {
                     {/* Dropdown */}
                     {dropdownOpen && (
                       <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                        <NavLink
+                          to="/admin"
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Administración
+                        </NavLink>
                         <button
                           onClick={handleLogoutAndRedirect}
                           className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
