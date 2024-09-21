@@ -80,10 +80,10 @@ export function Filters({
           className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         >
           <option value="all">Todas</option>
-          <option value="hombre">Hombre</option>
-          <option value="mujer">Mujer</option>
-          <option value="nino">Niño</option>
-          <option value="unisex">Unisex</option>
+          <option value="Hombre">Hombre</option>
+          <option value="Mujer">Mujer</option>
+          <option value="Niño">Niño</option>
+          <option value="Unisex">Unisex</option>
         </select>
       </div>
 
@@ -110,4 +110,6 @@ Filters.propTypes = {
   setCategory: PropTypes.func.isRequired,
   gender: PropTypes.string.isRequired,
   setGender: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired,
+  setSearch: PropTypes.func.isRequired,
 };
