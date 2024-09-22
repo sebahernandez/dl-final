@@ -17,7 +17,7 @@ body {
   animation: l24 1s infinite alternate linear;
 }
 .loader::before {
-  content: "Loading...";
+  content: "Cargando producto...";
   line-height: 1em;
   color: #0000;
   background: inherit;
