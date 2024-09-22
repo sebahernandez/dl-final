@@ -36,7 +36,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md px-5">
+    <nav className="bg-white shadow-sm px-5">
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
           {/* Logo (Izquierda) */}
@@ -140,12 +140,14 @@ export const Navbar = () => {
                     {/* Dropdown */}
                     {dropdownOpen && (
                       <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                        <NavLink
-                          to="/admin"
-                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          Administración
-                        </NavLink>
+                        {user?.rol === "administrador" && (
+                          <NavLink
+                            to="/admin"
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            Dashboard
+                          </NavLink>
+                        )}
                         <button
                           onClick={handleLogoutAndRedirect}
                           className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

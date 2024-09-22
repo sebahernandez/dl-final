@@ -11,7 +11,7 @@ const About = () => {
           o simplemente lucir con estilo, tenemos la zapatilla perfecta para ti.
         </p>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-10">
-          <div className="lg:w-1/3 text-left">
+          <div className="lg:w-1/3 text-left bg-white p-5 rounded-md h-52">
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">
               Calidad Garantizada
             </h3>
@@ -21,7 +21,7 @@ const About = () => {
               cada cliente reciba un producto que superará sus expectativas.
             </p>
           </div>
-          <div className="lg:w-1/3 text-left">
+          <div className="lg:w-1/3 text-left bg-white p-5 rounded-md h-52">
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">
               Variedad Inigualable
             </h3>
@@ -31,7 +31,7 @@ const About = () => {
               gusto y necesidad. ¡Encuentra tu par perfecto con nosotros!
             </p>
           </div>
-          <div className="lg:w-1/3 text-left">
+          <div className="lg:w-1/3 text-left bg-white p-5 rounded-md h-52">
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">
               Experiencia de Compra
             </h3>
@@ -43,7 +43,7 @@ const About = () => {
           </div>
         </div>
         <div className="flex flex-col lg:flex-row items-center justify-center gap-10 mt-12">
-          <div className="lg:w-1/3 text-left">
+          <div className="lg:w-1/3 text-left bg-white p-5 rounded-md h-60">
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">
               Sostenibilidad y Responsabilidad
             </h3>
@@ -55,7 +55,7 @@ const About = () => {
               que también tengan un impacto positivo en el planeta.
             </p>
           </div>
-          <div className="lg:w-1/3 text-left">
+          <div className="lg:w-1/3 text-left bg-white p-5 rounded-md h-60">
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">
               Nuestro Compromiso Contigo
             </h3>
@@ -66,7 +66,7 @@ const About = () => {
               lo posible para solucionarlo.
             </p>
           </div>
-          <div className="lg:w-1/3 text-left">
+          <div className="lg:w-1/3 text-left bg-white p-5 rounded-md h-60">
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">
               Únete a Nuestra Comunidad
             </h3>

@@ -28,7 +28,7 @@ export function Filters({
   };
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-4 gap-5 bg-slate-50 rounded p-3">
+    <section className="grid grid-cols-1 md:grid-cols-4 gap-5 bg-gray-100 rounded p-3">
       <div className="w-full flex flex-col px-3">
         <label htmlFor="price" className="text-lg font-semibold mb-3">
           Precio:
@@ -40,7 +40,7 @@ export function Filters({
           min="0"
           max="160000"
           onChange={handlerPriceRange}
-          className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-stone-600"
+          className="w-full h-2 bg-gray-300 rounded-sm appearance-none cursor-pointer accent-stone-600"
         />
         <span className="py-3 font-bold">{formatPriceCLP(priceRange)}</span>
       </div>
@@ -54,7 +54,7 @@ export function Filters({
           id="category"
           value={category}
           onChange={handlerCategory}
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
+          className="w-full px-3 py-2 bg-white  rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         >
           <option value="all">Todas</option>
           <option value="Invierno">Invierno</option>
@@ -77,7 +77,7 @@ export function Filters({
           id="gender"
           value={gender}
           onChange={handlerGender}
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
+          className="w-full px-3 py-2 bg-white  rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
         >
           <option value="all">Todas</option>
           <option value="Hombre">Hombre</option>
@@ -94,7 +94,7 @@ export function Filters({
         <input
           type="text"
           placeholder="Buscar producto..."
-          className="px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
+          className="px-3 py-2 bg-white  rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
           value={search}
           onChange={handleSearch}
         />

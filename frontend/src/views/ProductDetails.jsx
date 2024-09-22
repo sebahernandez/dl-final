@@ -81,13 +81,17 @@ const ProductDetails = () => {
   };
 
   if (!product) {
-    return <div className="container mx-auto py-10">Loading...</div>;
+    return (
+      <div className="py-10 flex justify-center items-center">
+        <div className="loader"></div>
+      </div>
+    );
   }
 
   return (
-    <div className="py-8 flex justify-center items-center">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-[100px]">
-        <div className="flex flex-col md:flex-row -mx-4 ">
+    <div className="py-8 flex justify-center items-center ">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-[100px]">
+        <div className="flex flex-col md:flex-row -mx-4 bg-white justify-center items-center rounded-md">
           <div className="md:flex-1 px-4">
             <div className="h-auto rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
               <img
