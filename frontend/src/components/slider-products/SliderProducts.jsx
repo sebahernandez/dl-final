@@ -54,7 +54,7 @@ export const SliderProducts = () => {
         >
           {products.map((product) => (
             <SplideSlide key={product.productid}>
-              <div className="border rounded-lg shadow-sm p-4 bg-white h-80">
+              <div className="rounded-lg shadow-md p-4 bg-white h-80 mb-3">
                 <Link to={`/product/${formatNameForUrl(product.name)}`}>
                   <img
                     src={product.image}

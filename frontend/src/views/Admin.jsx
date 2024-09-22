@@ -226,11 +226,11 @@ const Admin = () => {
   };
 
   return (
-    <section className="container mx-auto flex flex-row justify-between items-start h-auto p-4">
+    <section className="container mx-auto flex flex-row justify-between items-start p-4 bg-white my-10 rounded-md">
       {/* Panel de administración */}
       <div className="w-1/2 p-4">
         {/* Lista de productos */}
-        <h3 className="text-xl mb-4 mt-5 bg-slate-100 p-5 rounded-md">
+        <h3 className="text-xl mb-4 mt-5 bg-gray-100 p-5 rounded-md">
           Catálogo de productos
         </h3>
         <ul style={{ height: "700px", overflowY: "auto" }}>
@@ -246,41 +246,41 @@ const Admin = () => {
                     />
                   </div>
                   <div className="w-3/4 pl-4">
-                    <p className="font-bold text-lg">{product.name}</p>
+                    <p className="font-bold text-lg my-3">{product.name}</p>
                     <p>
-                      <strong className="text-slate-500">Descripción:</strong>{" "}
+                      <strong className="text-black">Descripción:</strong>{" "}
                       {product.description}
                     </p>
                     <p>
-                      <strong className="text-slate-500">Marca:</strong>{" "}
+                      <strong className="text-black">Marca:</strong>{" "}
                       {product.brand}{" "}
                     </p>
                     <p>
-                      <strong className="text-slate-500">Precio:</strong> $
+                      <strong className="text-black">Precio:</strong> $
                       {product.price}
                     </p>
                     <p>
-                      <strong className="text-slate-500">Stock:</strong>{" "}
+                      <strong className="text-black">Stock:</strong>{" "}
                       {product.stock}
                     </p>
                     <p>
-                      <strong className="text-slate-500">Tallas:</strong>{" "}
+                      <strong className="text-black">Tallas:</strong>{" "}
                       {Array.isArray(product.sizes)
                         ? product.sizes.join(", ")
                         : "No disponible"}
                     </p>
                     <p>
-                      <strong className="text-slate-500">Categoría:</strong>{" "}
+                      <strong className="text-black">Categoría:</strong>{" "}
                       {product.category}
                     </p>
                     <p>
-                      <strong className="text-slate-500">Género:</strong>{" "}
+                      <strong className="text-black">Género:</strong>{" "}
                       {product.gender}
                     </p>
                     <div className="mt-4">
                       <button
                         onClick={() => handleEditClick(product)}
-                        className="mr-2 bg-blue-500 text-white py-1 px-4 rounded hover:bg-blue-600"
+                        className="mr-2 bg-slate-700 text-white py-1 px-4 rounded hover:bg-slate-800"
                       >
                         Editar
                       </button>
@@ -330,7 +330,7 @@ const Admin = () => {
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
             />
           </div>
 
@@ -346,7 +346,7 @@ const Admin = () => {
               value={productDescription}
               onChange={(e) => setProductDescription(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
             />
           </div>
 
@@ -360,10 +360,11 @@ const Admin = () => {
             </label>
             <input
               type="number"
+              min="0"
               value={productPrice}
               onChange={(e) => setProductPrice(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
             />
           </div>
 
@@ -380,7 +381,7 @@ const Admin = () => {
               value={productImage}
               onChange={(e) => setProductImage(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
             />
           </div>
 
@@ -401,7 +402,7 @@ const Admin = () => {
                 )
               }
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
             />
           </div>
 
@@ -415,10 +416,11 @@ const Admin = () => {
             </label>
             <input
               type="number"
+              min="0"
               value={productStock}
               onChange={(e) => setProductStock(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
             />
           </div>
 
@@ -435,7 +437,7 @@ const Admin = () => {
               value={productMarca} // Aquí deberías capturar correctamente el valor de la marca
               onChange={(e) => setProductMarca(e.target.value)} // Asegúrate de que setProductMarca esté siendo llamado
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
             />
           </div>
 
@@ -452,7 +454,7 @@ const Admin = () => {
                 value={selectedCategory}
                 onChange={handleCategoryChange}
                 required
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+                className="mt-1 block w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
               >
                 <option value="">Seleccionar categoría</option>
                 {categories.map((category) => (
@@ -478,7 +480,7 @@ const Admin = () => {
               value={productGender}
               onChange={(e) => setProductGender(e.target.value)}
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2  rounded-md shadow-sm focus:outline-none focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
             >
               <option value="">Seleccionar</option>
               <option value="Hombre">Hombre</option>

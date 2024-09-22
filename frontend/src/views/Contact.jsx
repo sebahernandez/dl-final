@@ -39,8 +39,6 @@ const Contact = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
       if (response.ok) {
         setResponseMessage("Correo enviado con éxito.");
         setFormData({
@@ -134,8 +132,8 @@ const Contact = () => {
           <p className="mt-4 text-center font-bold">{responseMessage}</p>
         )}
       </div>
-      <div className="w-full md:w-1/2 p-5">
-        <h2 className="text-2xl font-bold py-5">
+      <div className="w-full md:w-1/2 px-5">
+        <h2 className="text-2xl font-bold py-2">
           Solicita información tus compras
         </h2>
         <p>

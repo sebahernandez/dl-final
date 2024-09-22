@@ -8,7 +8,7 @@ export const ProductCard = ({ product }) => {
   };
 
   return (
-    <div className="border rounded-lg shadow-sm p-4 bg-white">
+    <div className="rounded-lg shadow-md p-4 bg-white">
       <Link to={`/product/${formatNameForUrl(product.name)}`}>
         <img
           src={product.image}
