@@ -1,8 +1,8 @@
 # Desafio Latam
+# Sebastián Lagos
 
 ## Proyecto Final Ecommerce
 
-Importante : Hito 3 en carpeta Backend
 
-- Sebastián Lagos.
-- Bruno Coghlan.
+# Importante : Se deben realizar peticiones constantes en el sitio para que render.com active la base de dato y puedas ver los productos.
+
