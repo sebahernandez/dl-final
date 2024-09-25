@@ -6,12 +6,14 @@ import {
   updateProduct,
   deleteProduct,
 } from "../controller/products.js";
+import { authToken } from "../middleware/authToken.js";
 
 const products = Router();
 
-products.post("/", setProduct); // Crear producto
-products.get("/", getProducts); // Obtener todos los productos
-products.get("/:productid", getProductById); // Obtener producto por productid
-products.put("/:productid", updateProduct); // Actualizar producto por productid
-products.delete("/:productid", deleteProduct); // Eliminar producto por productid
+products.post("/", authToken, setProduct);
+products.put("/:productid", authToken, updateProduct);
+products.delete("/:productid", authToken, deleteProduct);
+products.get("/", getProducts);
+products.get("/:productid", getProductById);
+
 export default products;

@@ -26,3 +26,5 @@ app.use("*", error);
 app.listen(port, () => {
   console.log(`Servidor corriendo en el puerto ${port}`);
 });
+
+export default app;
