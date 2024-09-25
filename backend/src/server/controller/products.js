@@ -52,9 +52,7 @@ export const getProductById = (req, res) => {
 // Actualizar un producto
 export const updateProduct = (req, res) => {
   const { productid } = req.params;
-  console.log(req.params);
   const productData = req.body;
-  console.log(req.body);
 
   // Validamos que el 'productid' esté presente y sea un número
   if (!productid || isNaN(Number(productid))) {

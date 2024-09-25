@@ -28,7 +28,6 @@ const Admin = () => {
 
   // Cargar categorías al montar el componente
   useEffect(() => {
-    console.log("useEffect ejecutándose para cargar las categorías...");
     fetchCategories();
   }, []);
 
@@ -58,8 +57,6 @@ const Admin = () => {
     ? "http://localhost:3000/categories" // URL para entorno de desarrollo
     : import.meta.env.VITE_BASE_URL + "/categories"; // URL para entorno de producción
 
-  console.log("URL de categorías:", urlCategories);
-
   // Obtener todos los productos de la base de datos
   const fetchProducts = async () => {
     try {
@@ -85,10 +82,7 @@ const Admin = () => {
   // Obtener todas las categorías de la base de datos
   const fetchCategories = async () => {
     try {
-      console.log("Intentando obtener las categorías...");
-
       const response = await fetch(urlCategories);
-      console.log("Response status:", response.status); // Verifica el código de estado de la respuesta
 
       if (!response.ok) {
         throw new Error(
@@ -97,7 +91,7 @@ const Admin = () => {
       }
 
       const data = await response.json();
-      console.log("Datos de categorías obtenidos:", data); // Muestra los datos obtenidos
+      // Muestra los datos obtenidos
 
       if (Array.isArray(data)) {
         setCategories(data); // Actualiza el estado con las categorías
@@ -114,7 +108,6 @@ const Admin = () => {
   // Añadir un nuevo producto
   const handleAddProduct = async (e) => {
     e.preventDefault();
-    console.log("selectedCategory (debería ser categoryid):", selectedCategory);
 
     const newProduct = {
       name: productName,
@@ -127,11 +120,13 @@ const Admin = () => {
       category: selectedCategory,
       gender: productGender,
     };
-    console.log("Objeto actualizado:", newProduct);
+
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(urlProducts, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newProduct),
@@ -163,11 +158,13 @@ const Admin = () => {
       category: selectedCategory,
       gender: productGender,
     };
-    console.log("Objeto actualizado:", updatedProduct);
+
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(`${urlProducts}/${id}`, {
         method: "PUT",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(updatedProduct),
@@ -190,13 +187,15 @@ const Admin = () => {
   // Eliminar un producto
   const handleDeleteProduct = async (productid) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(`${urlProducts}/${productid}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`, // Pasar el token en el encabezado
+        },
       });
-
       if (response.ok) {
         fetchProducts(); // Actualiza la lista de productos
-        console.log("Producto eliminado con éxito");
         toast.success("Producto eliminado con exito");
       } else {
         console.error("Error al eliminar producto");

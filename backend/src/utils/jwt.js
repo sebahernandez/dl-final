@@ -7,4 +7,4 @@ export const jwtSign = (payload) =>
 
 export const jwtVerify = (token) => jwt.verify(token, JWTKEY);
 
-export const jwtDecode = (token) => jwt.decode(token, JWTKEY);
+export const jwtDecode = (token) => jwt.decode(token);
