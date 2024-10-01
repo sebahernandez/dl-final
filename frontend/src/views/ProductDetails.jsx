@@ -82,7 +82,7 @@ const ProductDetails = () => {
 
   if (!product) {
     return (
-      <div className="py-10 flex justify-center items-center">
+      <div className="py-10 flex justify-center items-center h-[100vh]">
         <div className="loader"></div>
       </div>
     );
