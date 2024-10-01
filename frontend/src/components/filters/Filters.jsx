@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useCallback, useEffect, useState } from "react";
 import { formatPriceCLP } from "../../utils/format-price/formatPrice";
 
 export function Filters({
@@ -11,6 +12,8 @@ export function Filters({
   search,
   setSearch,
 }) {
+  const [searchTerm, setSearchTerm] = useState(search);
+
   const handlerPriceRange = (e) => {
     setPriceRange(Number(e.target.value));
   };
@@ -24,8 +27,18 @@ export function Filters({
   };
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
+    setSearchTerm(e.target.value);
   };
+
+  const debouncedSearch = useCallback(
+    debounce((term) => setSearch(term), 500),
+    []
+  );
+
+  useEffect(() => {
+    debouncedSearch(searchTerm);
+    return () => debouncedSearch.cancel();
+  }, [searchTerm, debouncedSearch]);
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-4 gap-5 bg-gray-100 rounded p-3">
@@ -95,7 +108,7 @@ export function Filters({
           type="text"
           placeholder="Buscar producto..."
           className="px-3 py-2 bg-white  rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-500"
-          value={search}
+          value={searchTerm}
           onChange={handleSearch}
         />
       </div>
@@ -113,3 +126,21 @@ Filters.propTypes = {
   search: PropTypes.string.isRequired,
   setSearch: PropTypes.func.isRequired,
 };
+
+function debounce(func, wait) {
+  let timeout;
+  const debouncedFunction = (...args) => {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+
+  debouncedFunction.cancel = () => {
+    clearTimeout(timeout);
+  };
+
+  return debouncedFunction;
+}
